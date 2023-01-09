@@ -1,1 +1,1 @@
-# Stanford_CS231-Deep_Learning-for-Computer_Vision
+# Stanford_CS231n-Deep_Learning-for-Computer_Vision
