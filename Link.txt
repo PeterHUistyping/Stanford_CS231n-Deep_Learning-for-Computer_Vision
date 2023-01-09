@@ -1,0 +1,3 @@
+http://cs231n.stanford.edu/
+http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html
+Stanford University CS 131 Computer Vision: Foundations and Applications
