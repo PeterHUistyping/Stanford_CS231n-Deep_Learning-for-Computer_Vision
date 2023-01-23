@@ -4,6 +4,7 @@ http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html
 
 ## Assignment 2022 
 ### Assignment 0: Python Numpy
+<a href=2022Assignment/assignment0/python.ipynb>Python Tutorial</a> \
 ·Jupyter and Colab Notebooks \
 ·Python
 Basic data types, Containers(Lists, Dictionaries, Sets, Tuples) \
