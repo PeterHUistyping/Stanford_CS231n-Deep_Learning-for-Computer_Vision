@@ -1,3 +1,5 @@
 .DS_Store
 Hw/.DS_Store
  
+.tmp.driveupload/
+.tmp.drivedownload/
