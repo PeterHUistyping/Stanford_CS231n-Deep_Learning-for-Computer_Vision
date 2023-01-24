@@ -12,7 +12,7 @@ Functions,
 Classes \
 ·Numpy
 Arrays, 
-Array indexing, 
+Array indexing (** Boolean/ Integer Array Indexing**)
 Datatypes, 
 Array math, 
 Broadcasting \
