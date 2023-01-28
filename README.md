@@ -30,7 +30,15 @@ Q4: Two-Layer Neural Network \
 Q5: Higher Level Representations: Image Features Submitting your work$$
 
 ## Assignment1: Image Classification Pipeline
+Data-driven approach (train/predict stages)\
+Training data shape:  (50000, 32, 32, 3)\
+Training labels shape:  (50000,)
+
 ### k-Nearest Neighbor (kNN)
 Training: the classifier takes the training data and simply remembers it.\
 Testing: kNN classifies every test image by comparing to all training images and transfering the labels of the k most similar training examples.\
+Compute the distance between each test point in X and each training point
+in self.X_train using a (nested) loop over both the training data and the
+test data.\
+np.linalg.norm()\
 The value of k is cross-validated
