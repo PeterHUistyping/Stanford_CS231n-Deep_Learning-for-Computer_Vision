@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)https://www.cambridgeincolour.com/tutorials/image-interpolation.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Understanding Digital Image Interpolation</title>
+<meta name="viewport" content="width=device-width">
+
+<link rel="icon" href="https://cdn.cambridgeincolour.com/favicon.ico">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link rel="stylesheet" href="./Understanding Digital Image Interpolation_files/A.main.css+fonts-cdn.css+calculators.css,Mcc.LjtQ_mS9kz.css.pagespeed.cf.DDR33GDw3V.css" media="screen">
+<link rel="stylesheet" href="./Understanding Digital Image Interpolation_files/A.wp-includes,,_css,,_dist,,_block-library,,_style.min.css+wp-content,,_plugins,,_ajax-search-lite,,_css,,_style.basic.css+wp-content,,_plugins,,_ajax-search-lite,,_css,,_style-underline.css,Mcc.8og0jW1BV3.css.pagespeed.cf.4VUCH9I-uw.css" type="text/css" media="all"><style type="text/css">@font-face{font-family:'aslsicons2';src:url(https://cdn.cambridgeincolour.com/cms/wp-content/plugins/ajax-search-lite/css/fonts/icons2.eot);src:url(https://cdn.cambridgeincolour.com/cms/wp-content/plugins/ajax-search-lite/css/fonts/icons2.eot?#iefix) format('embedded-opentype') , url(https://cdn.cambridgeincolour.com/cms/wp-content/plugins/ajax-search-lite/css/fonts/icons2.woff2) format('woff2') , url(https://cdn.cambridgeincolour.com/cms/wp-content/plugins/ajax-search-lite/css/fonts/icons2.woff) format('woff') , url(https://cdn.cambridgeincolour.com/cms/wp-content/plugins/ajax-search-lite/css/fonts/icons2.ttf) format('truetype') , url(https://cdn.cambridgeincolour.com/cms/wp-content/plugins/ajax-search-lite/css/fonts/icons2.svg#icons) format('svg');font-weight:normal;font-style:normal}div[id*="ajaxsearchlitesettings"].searchsettings .asl_option_inner label{font-size:0!important;color:rgba(0,0,0,0)}div[id*="ajaxsearchlitesettings"].searchsettings .asl_option_inner label:after{font-size:11px!important;position:absolute;top:0;left:0;z-index:1}div[id*="ajaxsearchlite"].wpdreams_asl_container{width:100%;margin:0 0 0 0}div[id*="ajaxsearchliteres"].wpdreams_asl_results div.resdrg span.highlighted{font-weight:bold;color:rgba(217,49,43,1);background-color:rgba(238,238,238,1)}div[id*="ajaxsearchliteres"].wpdreams_asl_results .results div.asl_image{width:70px;height:70px;background-size:cover;background-repeat:no-repeat}div.asl_r .results{max-height:none}.asl_w,.asl_w *{font-family:inherit!important}.asl_m input[type="search"]::placeholder{font-family:inherit!important}.asl_m input[type="search"]::-webkit-input-placeholder{font-family:inherit!important}.asl_m input[type="search"]::-moz-placeholder{font-family:inherit!important}.asl_m input[type="search"]:-ms-input-placeholder{font-family:inherit!important}.asl_m .probox svg{fill:#c1c1c1!important}.asl_m .probox .innericon{background-color:rgba(255,255,255,0)!important;background-image:none!important;-webkit-background-image:none!important;-ms-background-image:none!important}div.asl_r.asl_w.vertical .results .item::after{display:block;position:absolute;bottom:0;content:'';height:1px;width:100%;background:#d8d8d8}div.asl_r.asl_w.vertical .results .item.asl_last_item::after{display:none}</style><script src="./Understanding Digital Image Interpolation_files/f(12).txt"></script><script src="./Understanding Digital Image Interpolation_files/f(13).txt"></script><script src="./Understanding Digital Image Interpolation_files/f(14).txt" id="google_shimpl"></script><script type="text/javascript" async="" src="./Understanding Digital Image Interpolation_files/analytics.js"></script><script type="text/javascript" id="async-buttons" src="./Understanding Digital Image Interpolation_files/async-buttons.js"></script><script async="" src="./Understanding Digital Image Interpolation_files/gtm.js"></script><script async="" src="./Understanding Digital Image Interpolation_files/js"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-362594-1');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5G9635B');</script>
+<script async="" src="./Understanding Digital Image Interpolation_files/f(15).txt"></script>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-7703354124612191",enable_page_level_ads:true});</script>
+<script>if(typeof window.orientation!=='undefined'){var hide_awf_Form=true;}</script>
+<meta name="robots" content="max-image-preview:large">
+<link rel="alternate" hreflang="en-us" href="https://www.cambridgeincolour.com/tutorials/image-interpolation.htm">
+<link rel="alternate" hreflang="ru-ru" href="https://www.cambridgeincolour.com/ru/tutorials-ru/image-interpolation.htm">
+<link rel="dns-prefetch" href="https://code.jquery.com/">
+<script>advanced_ads_ready=function(){var e,t=[],n="object"==typeof document&&document,d=n&&n.documentElement.doScroll,o="DOMContentLoaded",a=n&&(d?/^loaded|^c/:/^loaded|^i|^c/).test(n.readyState);return!a&&n&&(e=function(){for(n.removeEventListener(o,e),window.removeEventListener("load",e),a=1;e=t.shift();)e()},n.addEventListener(o,e),window.addEventListener("load",e)),function(e){a?setTimeout(e,0):t.push(e)}}();</script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/jquery-1.12.4.min.js" id="jquery-js"></script>
+<script type="text/javascript" id="advanced-ads-advanced-js-js-extra">//<![CDATA[
+var advads_options={"blog_id":"1","privacy":{"enabled":false,"state":"not_needed"}};
+//]]></script>
+<script src="./Understanding Digital Image Interpolation_files/advanced-ads,_public,_assets,_js,_advanced.min.js+advanced-ads-pro,_assets,_advanced-ads-pro.js.pagespeed.jc.rA_z06OC2z.js"></script><script>eval(mod_pagespeed_yx5hrYv7uI);</script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/jquery-migrate-3.3.2.min.js" id="jquery-migrate-js"></script>
+<script>eval(mod_pagespeed_0gn7F37ICV);</script>
+<script type="text/javascript" id="advanced-ads-pro/cache_busting-js-extra">//<![CDATA[
+var advanced_ads_pro_ajax_object={"ajax_url":"https:\/\/www.cambridgeincolour.com\/cms\/wp-admin\/admin-ajax.php?wpml_lang=en","lazy_load_module_enabled":"","lazy_load":{"default_offset":0,"offsets":[]},"moveintohidden":"","wp_timezone_offset":"-28800"};
+//]]></script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/base.min.js.pagespeed.ce.j4jgDnv86a.js" id="advanced-ads-pro/cache_busting-js"></script>
+<link rel="canonical" href="https://www.cambridgeincolour.com/tutorials/image-interpolation.htm">
+<script type="text/javascript">var advadsCfpQueue=[];var advadsCfpAd=function(adID){if('undefined'==typeof advadsProCfp){advadsCfpQueue.push(adID)}else{advadsProCfp.addElement(adID)}};</script>
+<meta name="onesignal" content="wordpress-plugin">
+<script>window.OneSignal=window.OneSignal||[];OneSignal.push(function(){OneSignal.SERVICE_WORKER_UPDATER_PATH="OneSignalSDKUpdaterWorker.js.php";OneSignal.SERVICE_WORKER_PATH="OneSignalSDKWorker.js.php";OneSignal.SERVICE_WORKER_PARAM={scope:"/"};OneSignal.setDefaultNotificationUrl("https://www.cambridgeincolour.com/cms");var oneSignal_options={};window._oneSignalInitOptions=oneSignal_options;oneSignal_options['wordpress']=true;oneSignal_options['appId']='beb6a1ef-3a80-4073-a2da-0f45af919035';oneSignal_options['allowLocalhostAsSecureOrigin']=true;oneSignal_options['welcomeNotification']={};oneSignal_options['welcomeNotification']['disable']=true;oneSignal_options['path']="https://www.cambridgeincolour.com/cms/wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/";oneSignal_options['safari_web_id']="web.onesignal.auto.2e77cfdc-f6e8-4572-82d4-363b6713f2bc";oneSignal_options['promptOptions']={};oneSignal_options['notifyButton']={};oneSignal_options['notifyButton']['enable']=true;oneSignal_options['notifyButton']['position']='bottom-right';oneSignal_options['notifyButton']['theme']='default';oneSignal_options['notifyButton']['size']='medium';oneSignal_options['notifyButton']['showCredit']=true;oneSignal_options['notifyButton']['text']={};OneSignal.init(window._oneSignalInitOptions);});function documentInitOneSignal(){var oneSignal_elements=document.getElementsByClassName("OneSignal-prompt");var oneSignalLinkClickHandler=function(event){OneSignal.push(['registerForPushNotifications']);event.preventDefault();};for(var i=0;i<oneSignal_elements.length;i++)oneSignal_elements[i].addEventListener('click',oneSignalLinkClickHandler,false);}if(document.readyState==='complete'){documentInitOneSignal();}else{window.addEventListener("load",function(event){documentInitOneSignal();});}</script>
+<script type="text/javascript">if(typeof _ASL!=="undefined"&&_ASL!==null&&typeof _ASL.initialize!=="undefined")_ASL.initialize();</script>
+<script src="./Understanding Digital Image Interpolation_files/styled_popovers_and_lightboxes.js" type="text/javascript"></script><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><link rel="stylesheet" type="text/css" href="./Understanding Digital Image Interpolation_files/buttons-secure.css"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/get_counts"></script><script src="./Understanding Digital Image Interpolation_files/OneSignalPageSDKES6.js" async=""></script><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(16).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(16).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(17).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(17).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(16).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(16).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(17).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(17).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(16).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(16).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(17).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(17).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(16).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(16).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(17).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(17).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(16).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(16).txt"></script><link rel="preload" href="./Understanding Digital Image Interpolation_files/f(17).txt" as="script"><script type="text/javascript" src="./Understanding Digital Image Interpolation_files/f(17).txt"></script></head>
+<body id="" class="" style="padding: 0px 0px 154px;">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5G9635B" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="container" class="post-template-default single single-post postid-147 single-format-standard wrap push aa-prefix-cambr-" style="right: 0px; transition: right 300ms ease 0s; height: auto !important;">
+<div id="wrapper" style="height: auto !important;">
+<div id="header">
+<a id="logo" href="https://www.cambridgeincolour.com/">Cambridge in Colour</a>
+<span id="slogan">A Learning Community for Photographers</span>
+<ul id="top-nav" class=""><li id="menu-item-611" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-611"><a href="https://www.cambridgeincolour.com/">Home</a></li>
+<li id="menu-item-990" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-990"><a target="_blank" rel="noopener" href="https://www.cambridgeincolour.com/books/understanding-photography-v2/">Books</a></li>
+<li id="menu-item-612" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-612"><a href="https://www.cambridgeincolour.com/photography-tools.htm">Tools</a></li>
+<li id="menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-613"><a>Tutorials</a>
+<ul class="sub-menu">
+<li id="menu-item-614" class="li-1 menu-item menu-item-type-post_type menu-item-object-page menu-item-614"><a href="https://www.cambridgeincolour.com/learn-photography-concepts.htm">Concepts &amp; Terminology</a></li>
+<li id="menu-item-616" class="li-2 menu-item menu-item-type-post_type menu-item-object-page menu-item-616"><a href="https://www.cambridgeincolour.com/camera-equipment.htm">Using Camera Equipment</a></li>
+<li id="menu-item-617" class="li-3 menu-item menu-item-type-post_type menu-item-object-page menu-item-617"><a href="https://www.cambridgeincolour.com/photo-editing-tutorials.htm">Editing &amp; Post-Processing</a></li>
+<li id="menu-item-618" class="li-4 menu-item menu-item-type-post_type menu-item-object-page menu-item-618"><a href="https://www.cambridgeincolour.com/color-management-printing.htm">Color Management &amp; Printing</a></li>
+<li id="menu-item-619" class="li-5 menu-item menu-item-type-post_type menu-item-object-page menu-item-619"><a href="https://www.cambridgeincolour.com/photography-techniques.htm">Photo Techniques &amp; Styles</a></li>
+<li id="menu-item-620" class="li-6 menu-item menu-item-type-post_type menu-item-object-page menu-item-620"><a href="https://www.cambridgeincolour.com/tutorials.htm">all photography tutorials</a></li>
+</ul>
+</li>
+<li id="menu-item-621" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-621"><a href="https://www.cambridgeincolour.com/forums/">Forums</a></li>
+</ul>
+<div id="get-updates">
+<span class="button">Get Updates</span>
+<form method="post" class="af-form-wrapper1" action="https://www.aweber.com/scripts/addlead.pl">
+<div style="display: none;">
+<input type="hidden" name="meta_web_form_id" value="649402156">
+<input type="hidden" name="meta_split_id" value="">
+<input type="hidden" name="listname" value="cinc">
+<input type="hidden" name="redirect" value="https://www.cambridgeincolour.com/subscribe/requested.htm" id="redirect_f777ed8e09cde1bd936eb011da968b0d">
+<input type="hidden" name="meta_adtracking" value="Top_Page_Form">
+<input type="hidden" name="meta_message" value="1">
+<input type="hidden" name="meta_required" value="email">
+<input type="hidden" name="meta_tooltip" value="email||enter your email here">
+</div>
+<input class="text" id="awf_field-29954040" type="email" name="email" x-autocompletetype="email" value="enter your email here" tabindex="500" onfocus=" if (this.value == &#39;enter your email here&#39;) { this.value = &#39;&#39;; }" onblur="if (this.value == &#39;&#39;) { this.value=&#39;enter your email here&#39;;} ">
+<input name="submit" class="submit" type="submit" value="Submit" tabindex="501">
+</form>
+</div>
+<div id="ajaxsearchlite1" class="wpdreams_asl_container asl_w asl_m asl_m_1">
+<div class="probox">
+<div class="promagnifier">
+<div class="innericon">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<path d="M460.355,421.59L353.844,315.078c20.041-27.553,31.885-61.437,31.885-98.037
+                    C385.729,124.934,310.793,50,218.686,50C126.58,50,51.645,124.934,51.645,217.041c0,92.106,74.936,167.041,167.041,167.041
+                    c34.912,0,67.352-10.773,94.184-29.158L419.945,462L460.355,421.59z M100.631,217.041c0-65.096,52.959-118.056,118.055-118.056
+                    c65.098,0,118.057,52.959,118.057,118.056c0,65.096-52.959,118.056-118.057,118.056C153.59,335.097,100.631,282.137,100.631,217.041
+                    z"></path>
+</svg>
+</div>
+</div>
+<div class="prosettings" style="display:none;" data-opened="0">
+<div class="innericon">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<polygon transform="rotate(90 256 256)" points="142.332,104.886 197.48,50 402.5,256 197.48,462 142.332,407.113 292.727,256 "></polygon>
+</svg>
+</div>
+</div>
+<div class="proinput">
+<form autocomplete="off" aria-label="Ajax search form">
+<input aria-label="Search input" type="search" class="orig" name="phrase" placeholder="Search" value="" autocomplete="off">
+<input aria-label="Autocomplete input, do not use this" type="text" class="autocomplete" name="phrase" value="" autocomplete="off">
+<input type="submit" value="Start search" style="width:0; height: 0; visibility: hidden;">
+</form>
+</div>
+<div class="proloading">
+<div class="asl_loader"><div class="asl_loader-inner asl_simple-circle"></div></div>
+</div>
+<div class="proclose">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<polygon points="438.393,374.595 319.757,255.977 438.378,137.348 374.595,73.607 255.995,192.225 137.375,73.622 73.607,137.352 192.246,255.983 73.622,374.625 137.352,438.393 256.002,319.734 374.652,438.378 "></polygon>
+</svg>
+</div>
+</div>
+</div>
+<div id="ajaxsearchlitesettings1" class="searchsettings wpdreams_asl_settings asl_w asl_s asl_s_1">
+<form name="options" autocomplete="off">
+<div class="asl_option_inner hiddend">
+<input type="hidden" name="qtranslate_lang" id="qtranslate_lang1" value="0">
+</div>
+<div class="asl_option_inner hiddend">
+<input type="hidden" name="wpml_lang" value="en">
+</div>
+<fieldset class="asl_sett_scroll">
+<legend style="display: none;">Generic selectors</legend>
+<div class="asl_option">
+<div class="asl_option_inner">
+<input type="checkbox" value="exact" id="set_exactonly1" title="Exact matches only" name="asl_gen[]">
+<label for="set_exactonly1">Exact matches only</label>
+</div>
+<div class="asl_option_label">
+Exact matches only </div>
+</div>
+<div class="asl_option">
+<div class="asl_option_inner">
+<input type="checkbox" value="title" id="set_intitle1" title="Search in title" name="asl_gen[]" checked="checked">
+<label for="set_intitle1">Search in title</label>
+</div>
+<div class="asl_option_label">
+Search in title </div>
+</div>
+<div class="asl_option">
+<div class="asl_option_inner">
+<input type="checkbox" value="content" id="set_incontent1" title="Search in content" name="asl_gen[]" checked="checked">
+<label for="set_incontent1">Search in content</label>
+</div>
+<div class="asl_option_label">
+Search in content </div>
+</div>
+<div class="asl_option_inner hiddend">
+<input type="checkbox" value="excerpt" id="set_inexcerpt1" title="Search in excerpt" name="asl_gen[]" checked="checked">
+<label for="set_inexcerpt1">Search in excerpt</label>
+</div>
+</fieldset>
+<fieldset class="asl_sett_scroll">
+<div class="asl_option_inner hiddend">
+<input type="checkbox" value="post" id="1customset_11" title="Hidden option, ignore please" name="customset[]" checked="checked">
+<label for="1customset_11">Hidden</label>
+</div>
+<div class="asl_option_label hiddend"></div>
+<div class="asl_option_inner hiddend">
+<input type="checkbox" value="page" id="1customset_12" title="Hidden option, ignore please" name="customset[]" checked="checked">
+<label for="1customset_12">Hidden</label>
+</div>
+<div class="asl_option_label hiddend"></div>
+</fieldset>
+</form>
+</div>
+<div id="ajaxsearchliteres1" class="vertical wpdreams_asl_results asl_w asl_r asl_r_1">
+<div class="results">
+<div class="resdrg">
+</div>
+</div>
+<p class="showmore">
+<a>More results...</a>
+</p>
+</div>
+<div id="asl_hidden_data">
+<svg style="position:absolute" height="0" width="0">
+<filter id="aslblur">
+<fegaussianblur in="SourceGraphic" stdDeviation="4"></fegaussianblur>
+</filter>
+</svg>
+<svg style="position:absolute" height="0" width="0">
+<filter id="no_aslblur"></filter>
+</svg>
+</div>
+<div class="asl_init_data wpdreams_asl_data_ct" style="display:none !important;" id="asl_init_id_1" data-asldata="ew0KICAgICAgICAiaG9tZXVybCI6ICJodHRwczovL3d3dy5jYW1icmlkZ2VpbmNvbG91ci5jb20vIiwNCiAgICAgICAgInJlc3VsdHN0eXBlIjogInZlcnRpY2FsIiwNCiAgICAicmVzdWx0c3Bvc2l0aW9uIjogImhvdmVyIiwNCiAgICAiaXRlbXNjb3VudCI6IDQsDQogICAgImltYWdld2lkdGgiOiA3MCwNCiAgICAiaW1hZ2VoZWlnaHQiOiA3MCwNCiAgICAicmVzdWx0aXRlbWhlaWdodCI6ICI3MHB4IiwNCiAgICAic2hvd2F1dGhvciI6IDAsDQogICAgInNob3dkYXRlIjogMCwNCiAgICAic2hvd2Rlc2NyaXB0aW9uIjogMSwNCiAgICAiY2hhcmNvdW50IjogIDMsDQogICAgImRlZmF1bHRJbWFnZSI6ICJodHRwczovL2Nkbi5jYW1icmlkZ2VpbmNvbG91ci5jb20vY21zL3dwLWNvbnRlbnQvcGx1Z2lucy9hamF4LXNlYXJjaC1saXRlL2ltZy9kZWZhdWx0LmpwZyIsDQogICAgImhpZ2hsaWdodCI6IDAsDQogICAgImhpZ2hsaWdodHdob2xld29yZHMiOiAxLA0KCSJzaW5nbGVIaWdobGlnaHQiOiAwLA0KICAgICJzY3JvbGxUb1Jlc3VsdHMiOiAwLA0KICAgICJyZXN1bHRhcmVhY2xpY2thYmxlIjogMSwNCiAgICAiYXV0b2NvbXBsZXRlIjogew0KICAgICAgICAiZW5hYmxlZCIgOiAxLA0KICAgICAgICAibGFuZyIgOiAiZW4iDQogICAgfSwNCgkibW9iaWxlIjogew0KCQkibWVudV9zZWxlY3RvciI6ICIjbWVudS10b2dnbGUiDQoJfSwNCiAgICAidHJpZ2dlcm9udHlwZSI6IDEsDQogICAgInRyaWdnZXJfb25fY2xpY2siOiAwLA0KICAgICJ0cmlnZ2VyX29uX2ZhY2V0X2NoYW5nZSI6IDEsDQogICAgInNldHRpbmdzaW1hZ2Vwb3MiOiAicmlnaHQiLA0KICAgICJocmVzdWx0YW5pbWF0aW9uIjogImZ4LW5vbmUiLA0KICAgICJ2cmVzdWx0YW5pbWF0aW9uIjogImZ4LW5vbmUiLA0KICAgICJocmVzdWx0aGlkZWRlc2MiOiAiMSIsDQogICAgInByZXNjb250YWluZXJoZWlnaHQiOiAiNDAwcHgiLA0KICAgICJwc2hvd3N1YnRpdGxlIjogIjAiLA0KICAgICJwc2hvd2Rlc2MiOiAiMSIsDQogICAgImNsb3NlT25Eb2NDbGljayI6IDEsDQogICAgImlpZk5vSW1hZ2UiOiAiZGVzY3JpcHRpb24iLA0KICAgICJpaVJvd3MiOiAyLA0KICAgICJpaXRlbXNXaWR0aCI6IDIwMCwNCiAgICAiaWl0ZW1zSGVpZ2h0IjogMjAwLA0KICAgICJpaXNob3dPdmVybGF5IjogMSwNCiAgICAiaWlibHVyT3ZlcmxheSI6IDEsDQogICAgImlpaGlkZUNvbnRlbnQiOiAxLA0KICAgICJpaWFuaW1hdGlvbiI6ICIxIiwNCiAgICAiYW5hbHl0aWNzIjogInBhZ2V2aWV3IiwNCiAgICAiYW5hbHl0aWNzU3RyaW5nIjogIj9hamF4X3NlYXJjaD17YXNsX3Rlcm19IiwNCiAgICAicmVkaXJlY3RvbmNsaWNrIjogMSwNCiAgICAicmVkaXJlY3RDbGlja1RvIjogInJlc3VsdHNfcGFnZSIsDQogICAgInJlZGlyZWN0Q2xpY2tMb2MiOiAic2FtZSIsDQogICAgInJlZGlyZWN0X29uX2VudGVyIjogMSwNCiAgICAicmVkaXJlY3RFbnRlclRvIjogInJlc3VsdHNfcGFnZSIsDQogICAgInJlZGlyZWN0RW50ZXJMb2MiOiAic2FtZSIsDQogICAgInJlZGlyZWN0X3VybCI6ICI/cz17cGhyYXNlfSIsDQogICAgIm92ZXJyaWRld3BkZWZhdWx0IjogMSwNCiAgICAib3ZlcnJpZGVfbWV0aG9kIjogImdldCINCn0NCg=="></div>
+<span class="menu-trigger"></span>
+</div>
+<div id="main-wrapper" class="clear" style="height: auto !important;">
+<div id="main" class="clear" style="height: auto !important;">
+<div id="content" style="height: auto !important;">
+<div class="post" style="height: auto !important;">
+<h1>DIGITAL IMAGE INTERPOLATION</h1>
+<p>Image interpolation occurs in all digital photos at some stage — whether this be in <a href="https://www.cambridgeincolour.com/tutorials/camera-sensors.htm">bayer demosaicing</a> or in photo enlargement. It happens anytime you resize or remap (distort) your image from one pixel grid to another. Image resizing is necessary when you need to increase or decrease the total number of pixels, whereas remapping can occur under a wider variety of scenarios: correcting for lens distortion, changing perspective, and rotating an image.</p><div class="cambr-content" style="margin-left: auto; margin-right: auto; text-align: center; " id="cambr-725480058"><script async="" src="./Understanding Digital Image Interpolation_files/f(15).txt"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px;" data-ad-client="ca-pub-7703354124612191" data-ad-slot="5328152226" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_1_host" style="border: none; height: 60px; width: 468px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0;width:468px;height:60px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="468" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads.html" data-google-container-id="a!2" data-google-query-id="CPCEz7Su6vwCFWGFUAYdIysEmQ" data-load-complete="true"></iframe></div></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+<br>
+<div class="center">
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interpolation_intro.png" alt="image interpolation - resize and distort example" width="573" height="82">
+</div>
+<p>Even if the same image resize or remap is performed, the results can vary significantly depending on the interpolation algorithm. Itis only an approximation, therefore an image will always lose some quality each time interpolation is performed. This tutorial aims to provide a better understanding of how the results may vary — helping you to minimize any interpolation-induced losses in image quality.</p>
+<h2>CONCEPT</h2>
+<p>Interpolation works by using known data to estimate values at unknown points. For example: if you wanted to know the temperature at noon, but only measured it at 11AM and 1PM, you could estimate its value by performing a linear interpolation:</p>
+<div class="center"><img loading="lazy" src="./Understanding Digital Image Interpolation_files/interpolation_graph1.png" width="388" height="133" alt="linear interpolation graph"></div>
+<p>If you had an additional measurement at 11:30AM, you could see that the bulk of the temperature rise occurred before noon, and could use this additional data point to perform a quadratic interpolation:</p>
+<div class="center"><img loading="lazy" src="./Understanding Digital Image Interpolation_files/interpolation_graph2.png" width="388" height="133" alt="curved interpolation graph"></div>
+<p>The more temperature measurements you have which are close to noon, the more sophisticated (and hopefully more accurate) your interpolation algorithm can be.</p>
+<h2>IMAGE RESIZE EXAMPLE</h2>
+<p>Image interpolation works in two directions, and tries to achieve a best approximation of a pixel's color and intensity based on the values at surrounding pixels. The following example illustrates how resizing / enlargement works:</p>
+<div class="image-row cap">
+<div><div>
+<img loading="lazy" title="Original" src="./Understanding Digital Image Interpolation_files/interpolation_2De.png" width="96" height="132">
+<span class="caption">Original</span></div></div>
+<div>
+<span>Enlarge 183%<br><br><span class="arrowbg">→</span>
+</span></div>
+<div><div>
+<img loading="lazy" title="Before Interpolation" src="./Understanding Digital Image Interpolation_files/interpolation_2D-lg.png" width="132" height="132">
+<span class="caption">Before Interpolation</span></div></div>
+<div><div>
+<img loading="lazy" title="After Interpolation" src="./Understanding Digital Image Interpolation_files/interpolation_2D-interp.png" width="132" height="132">
+<span class="caption">After Interpolation</span></div></div>
+<div><div>
+<img loading="lazy" title="No Interpolation" src="./Understanding Digital Image Interpolation_files/interpolation_nointerp.png" width="132" height="132">
+<span class="caption">No Interpolation</span></div></div>
+</div><div class="google-auto-placed ap_container" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7703354124612191" data-adsbygoogle-status="done" style="display: block; margin: auto; background-color: transparent; height: 280px;" data-ad-status="filled"><div id="aswift_3_host" style="border: none; height: 280px; width: 602px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;border:0;width:602px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="602" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(1).html" data-google-container-id="a!4" data-google-query-id="CIX6p7Wu6vwCFRrB7QoddTwHLg" data-load-complete="true"></iframe></div></ins></div>
+<p>Unlike air temperature fluctuations and the ideal gradient above, pixel values can change far more abruptly from one location to the next. As with the temperature example, the more you know about the surrounding pixels, the better the interpolation will become. Therefore results quickly deteriorate the more you stretch an image, and interpolation can never add detail to your image which is not already present.</p>
+<h2>IMAGE ROTATION EXAMPLE</h2>
+<p>Interpolation also occurs each time you rotate or distort an image. The previous example was misleading because it is one which interpolators are particularly good at. This next example shows how image detail can be lost quite rapidly:</p>
+<div class="image-row">
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_rotate.png" width="96" height="64">
+<span class="caption">Original<br>&nbsp;</span>
+</div></div>
+<div>
+Rotation<br><br><span class="arrowbg">→</span>
+</div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_rotate45.png" width="96" height="64">
+<span class="caption">45° Rotation<br>&nbsp;</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_rotate90.png" width="96" height="64">
+<span class="caption">90° Rotation<br>(Lossless)</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_rotate2x45.png" width="96" height="64">
+<span class="caption">2 X 45°<br>Rotations</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_rotate6x15.png" width="96" height="64">
+<span class="caption">6 X 15°<br>Rotations</span>
+</div></div>
+</div><div class="google-auto-placed ap_container" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7703354124612191" data-adsbygoogle-status="done" style="display: block; margin: auto; background-color: transparent; height: 280px;" data-ad-status="filled"><div id="aswift_4_host" style="border: none; height: 280px; width: 602px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;border:0;width:602px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="602" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(2).html" data-google-container-id="a!5" data-google-query-id="CM6LqLWu6vwCFRqy7QodqZQGeA" data-load-complete="true"></iframe></div></ins></div>
+<p>The 90° rotation is lossless because no pixel ever has to be repositioned onto the border between two pixels (and therefore divided). Note how most of the detail is lost in just the first rotation, although the image continues to deteriorate with successive rotations. One should therefore <strong>avoid rotating your photos when possible</strong>; if an unleveled photo requires it, rotate no more than once.</p>
+<p>The above results use what is called a "bicubic" algorithm, and show significant deterioration. Note the overall decrease in contrast evident by color becoming less intense, and how dark haloes are created around the light blue. The above results could be improved significantly, depending on the interpolation algorithm and subject matter.</p>
+<h2>TYPES OF INTERPOLATION ALGORITHMS</h2>
+<p>Common interpolation algorithms can be grouped into two categories: adaptive and non-adaptive. Adaptive methods change depending on what they are interpolating (sharp edges vs. smooth texture), whereas non-adaptive methods treat all pixels equally.</p>
+<p><strong>Non-adaptive algorithms</strong> include: nearest neighbor, bilinear, bicubic, spline, sinc, lanczos and others. Depending on their complexity, these use anywhere from 0 to 256 (or more) adjacent pixels when interpolating. The more adjacent pixels they include, the more accurate they can become, but this comes at the expense of much longer processing time. These algorithms can be used to both distort and resize a photo.</p>
+<div class="image-row">
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_edge-detect.png" width="58" height="71" style="padding: 55px 45px 54px 44px;">
+<span class="caption">Original</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_edge-detect2.png" width="147" height="180">
+<span class="caption">Enlarged 250%</span>
+</div></div>
+</div>
+<p><strong>Adaptive algorithms</strong> include many proprietary algorithms in licensed software such as: Qimage, PhotoZoom Pro, Genuine Fractals and others. Many of these apply a different version of their algorithm (on a pixel-by-pixel basis) when they detect the presence of an edge — aiming to minimize unsightly interpolation artifacts in regions where they are most apparent. These algorithms are primarily designed to maximize artifact-free detail in enlarged photos, so some cannot be used to distort or rotate an image.</p>
+<h2>NEAREST NEIGHBOR INTERPOLATION</h2>
+<p>Nearest neighbor is the most basic and requires the least processing time of all the interpolation algorithms because it only considers one pixel — the closest one to the interpolated point. This has the effect of simply making each pixel bigger.</p>
+<h2>BILINEAR INTERPOLATION</h2>
+<div class="left">
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interpolation_graph-bilinear.png" width="167" height="130" alt="bilinear interpolation graph">
+</div>
+<p>Bilinear interpolation considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted average of these 4 pixels to arrive at its final interpolated value. This results in much smoother looking images than nearest neighbor.</p>
+<p>The diagram to the left is for a case when all known pixel distances are equal, so the interpolated value is simply their sum divided by four.</p>
+<h2>BICUBIC INTERPOLATION</h2>
+<div class="left">
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interpolation_graph-bicubic.png" width="267" height="193" alt="bicubic interpolation graph">
+</div>
+<p>Bicubic goes one step beyond bilinear by considering the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Since these are at various distances from the unknown pixel, closer pixels are given a higher weighting in the calculation. Bicubic produces noticeably sharper images than the previous two methods, and is perhaps the ideal combination of processing time and output quality. For this reason it is a standard in many image editing programs (including Adobe Photoshop), printer drivers and in-camera interpolation.</p>
+<h2>HIGHER ORDER INTERPOLATION: SPLINE &amp; SINC</h2>
+<p>There are many other interpolators which take more surrounding pixels into consideration, and are thus also much more computationally intensive. These algorithms include spline and sinc, and retain the most image information after an interpolation. They are therefore extremely useful when the image requires multiple rotations / distortions in separate steps. However, for single-step enlargements or rotations, these higher-order algorithms provide diminishing visual improvement as processing time is increased.</p>
+<h2>INTERPOLATION ARTIFACTS TO WATCH OUT FOR</h2>
+<p>All non-adaptive interpolators attempt to find an optimal balance between three undesirable artifacts: edge halos, blurring and aliasing.</p>
+<div class="image-row">
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_artifacts1b.png" width="96" height="192">
+<span class="caption">Original</span>
+</div></div>
+<div>
+Enlarged<br>400%<br><br><span class="arrowbg">→</span>
+</div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_artifacts-pixel.jpg" width="96" height="192">
+<span class="caption">Aliasing</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_artifacts-blur.jpg" width="96" height="192">
+<span class="caption">Blurring</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_artifacts-halo.jpg" width="96" height="192">
+<span class="caption">Edge Halo</span>
+</div></div>
+</div><div class="google-auto-placed ap_container" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7703354124612191" data-adsbygoogle-status="done" style="display: block; margin: auto; background-color: transparent; height: 280px;" data-ad-status="filled"><div id="aswift_5_host" style="border: none; height: 280px; width: 602px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_5" name="aswift_5" style="left:0;position:absolute;top:0;border:0;width:602px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="602" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(3).html" data-google-container-id="a!6" data-google-query-id="CKHetOeu6vwCFRGz7QodvOQEQw" data-load-complete="true"></iframe></div></ins></div>
+<p>Even the most advanced non-adaptive interpolators always have to increase or decrease one of the above artifacts at the expense of the other two — therefore at least one will be visible. Also note how the edge halo is similar to the <a href="https://www.cambridgeincolour.com/tutorials/unsharp-mask.htm">artifact produced by over sharpening with an unsharp mask</a>, and improves the <a href="https://www.cambridgeincolour.com/tutorials/sharpness.htm">appearance of sharpness by increasing acutance</a>.</p>
+<p>Adaptive interpolators may or may not produce the above artifacts, however they can also induce non-image textures or strange pixels at small-scales:</p>
+<div class="image-row">
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interpolation_adaptive.jpg" width="275" height="139" alt="adaptive interpolation example">
+<span class="caption">Original</span>
+</div></div>
+<div>
+Enlarged<br>220%<br><br><span class="arrowbg">→</span>
+</div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_adaptive-grass.jpg" width="197" height="127" style="border: 2px solid #c00">
+<span class="caption">Adaptive Interpolation</span>
+</div></div>
+</div>
+<p>On the other hand, some of these "artifacts" from adaptive interpolators may also be seen as benefits. Since the eye expects to see detail down to the smallest scales in fine-textured areas such as foliage, these patterns have been argued to trick the eye from a distance (for some subject matter).</p>
+<a name="anti-aliasing"></a>
+<h2>ANTI-ALIASING</h2>
+<p>Anti-aliasing is a process which attempts to minimize the appearance of aliased or jagged diagonal edges, termed "jaggies." These give text or images a rough digital appearance:</p>
+<div class="image-row">
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_aliasing.png" width="55" height="14"><br><br>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_aliasing2.png" width="165" height="42">
+<span class="caption">Enlarged 300%<br>(With Aliasing)</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_anti-aliasing.png" width="95" height="14"><br><br>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_anti-aliasing2.png" width="285" height="42" alt="anti-aliased text 300% enlarged">
+<span class="caption">Enlarged 300%<br>(Without Aliasing)</span>
+</div></div>
+</div><div class="google-auto-placed ap_container" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7703354124612191" data-adsbygoogle-status="done" style="display: block; margin: auto; background-color: transparent; height: 280px;" data-ad-status="filled"><div id="aswift_6_host" style="border: none; height: 280px; width: 602px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_6" name="aswift_6" style="left:0;position:absolute;top:0;border:0;width:602px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="602" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(4).html" data-google-container-id="a!7" data-google-query-id="CO313Omu6vwCFRjA7QodhUQBjQ" data-load-complete="true"></iframe></div></ins></div>
+<p>Anti-aliasing removes these jaggies and gives the appearance of smoother edges and higher resolution. It works by taking into account how much an ideal edge overlaps adjacent pixels. The aliased edge simply rounds up or down with no intermediate value, whereas the anti-aliased edge gives a value proportional to how much of the edge was within each pixel:</p>
+<div class="image-row">
+<div>
+<table class="t1 pad" style="visibility: hidden;">
+<tbody><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+<div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/interp_alias1.png" width="241" height="168">
+<span class="caption">Perfect Diagonal</span>
+</div></div>
+<div>
+<table class="t1 pad center">
+<tbody><tr>
+<td class="bg">Choose:</td>
+<td id="b1" class="on"><span onmouseover="on(&#39;b1&#39;); off(&#39;b2&#39;); img1.src=&#39;https://cdn.cambridgeincolour.com/images/tutorials/interp_alias2.png&#39;; ">Aliased</span></td>
+<td id="b2"><span onmouseover="off(&#39;b1&#39;); on(&#39;b2&#39;); img1.src=&#39;https://cdn.cambridgeincolour.com/images/tutorials/interp_alias3.png&#39;; ">Anti-Aliased</span></td>
+</tr>
+</tbody></table>
+<div>
+<img loading="lazy" name="img1" src="./Understanding Digital Image Interpolation_files/interp_alias2.png" width="241" height="168">
+<span class="caption">Resampled to Low Resolution</span>
+</div></div>
+</div>
+<p>A major obstacle when enlarging an image is preventing the interpolator from inducing or exacerbating aliasing. Many adaptive interpolators detect the presence of edges and adjust to minimize aliasing while still retaining <a href="https://www.cambridgeincolour.com/tutorials/sharpness.htm">edge sharpness</a>. Since an anti-aliased edge contains information about that edge's location at higher resolutions, it is also conceivable that a powerful adaptive (edge-detecting) interpolator could at least partially reconstruct this edge when enlarging.</p>
+<a name="digital-zoom"></a>
+<h2>NOTE ON OPTICAL vs. DIGITAL ZOOM</h2>
+<p>Many compact digital cameras can perform both an optical and a digital zoom. A camera performs an optical zoom by moving the zoom lens so that it increases the magnification of light before it even reaches the digital sensor. In contrast, a digital zoom degrades quality by simply interpolating the image — after it has been acquired at the sensor.</p>
+<div class="center">
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/digital_rainbow.jpg" width="450" height="159">
+</div>
+<div class="image-row">
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/digital_rainbow_optical.jpg" alt="optical zoom" width="250" height="135" style="border: 2px solid #c00">
+<span class="caption">10X Optical Zoom</span>
+</div></div>
+<div><div>
+<img loading="lazy" src="./Understanding Digital Image Interpolation_files/digital_rainbow_digital.jpg" alt="digital zoom" width="250" height="135" style="border: 2px solid #c00">
+<span class="caption">10X Digital Zoom</span>
+</div></div>
+</div>
+<p>Even though the photo with digital zoom contains the same number of pixels, the detail is clearly far less than with optical zoom. <strong>Digital zoom should be almost entirely avoided</strong>, unless it helps to visualize a distant object on your camera's LCD preview screen. Alternatively, if you regularly shoot in JPEG and plan on cropping and enlarging the photo afterwards, digital zoom at least has the benefit of performing the interpolation before any compression artifacts set in. If you find you are needing digital zoom too frequently, purchase a teleconverter add-on, or better yet: a lens with a longer focal length.</p>
+<p style="text-align: center;">For further reading, please visit more specific tutorials on:<br><a href="https://www.cambridgeincolour.com/tutorials/digital-photo-enlargement.htm">Digital Photo Enlargement</a><br><a href="https://www.cambridgeincolour.com/tutorials/image-resize-for-web.htm">Image Resizing for the Web and Email</a></p>
+<div class="preload">
+<img src="./Understanding Digital Image Interpolation_files/interp_alias3.png">
+</div>	</div>
+<p><b>Want to learn more?</b> Discuss this and other articles in our <a href="https://www.cambridgeincolour.com/forums/">digital photography forums</a>.</p>
+<p style="text-align: center; margin-top: 25px;">- Back to <a href="https://www.cambridgeincolour.com/tutorials.htm">Photography Tutorials</a> -</p>
+</div>
+<div id="sidebar" style="height: auto !important;">
+<div class="side-social">
+Follow us via
+<ul>
+<li class="li-1"><a href="https://www.cambridgeincolour.com/subscribe/form.htm">Email</a></li>
+<li class="li-3"><a href="https://www.facebook.com/cambridgeincolour" target="_blank" rel="noopener">Facebook</a></li>
+<li class="li-4"><a href="https://twitter.com/#!/cambridgecolour" target="_blank" rel="noopener">Twitter</a></li>
+</ul>
+</div>
+<div class="category-links">
+<h3>BROWSE CATEGORIES</h3>
+<ul>
+<li class="li-1"><a href="https://www.cambridgeincolour.com/learn-photography-concepts.htm">Concepts &amp; Terminology</a></li>
+<li class="li-2"><a href="https://www.cambridgeincolour.com/camera-equipment.htm">Using Camera Equipment</a></li>
+<li class="li-3"><a href="https://www.cambridgeincolour.com/photo-editing-tutorials.htm">Editing &amp; Post-Processing</a></li>
+<li class="li-4"><a href="https://www.cambridgeincolour.com/color-management-printing.htm">Color Management &amp; Printing</a></li>
+<li class="li-5"><a href="https://www.cambridgeincolour.com/photography-techniques.htm">Photo Techniques &amp; Styles</a></li>
+</ul>
+</div>
+<div class="category-links">
+<h3>GET OUR LATEST BOOK!</h3>
+<a href="https://www.cambridgeincolour.com/books/understanding-photography-v2/"><img src="./Understanding Digital Image Interpolation_files/ebook2-ad1.jpg" width="226" height="403" alt="photography book"></a>
+</div>
+<div class="cambr-sidebar ad_side" id="cambr-1700516604"><script async="" src="./Understanding Digital Image Interpolation_files/f(15).txt"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px;" data-ad-client="ca-pub-7703354124612191" data-ad-slot="0201281930" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_2_host" style="border: none; height: 600px; width: 160px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0;width:160px;height:600px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(5).html" data-google-container-id="a!3" data-google-query-id="CM65z7Su6vwCFaaw7QodMTUI3A" data-load-complete="true"></iframe></div></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div><div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-7703354124612191" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 240px;" data-ad-status="filled"><div id="aswift_7_host" style="border: none; height: 240px; width: 258px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_7" name="aswift_7" style="left:0;position:absolute;top:0;border:0;width:258px;height:240px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="258" height="240" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(6).html" data-google-container-id="a!8" data-google-query-id="CPrCqLWu6vwCFQS-7Qod_30EZA" data-load-complete="true"></iframe></div></ins></div>
+</div>
+<script src="./Understanding Digital Image Interpolation_files/buttons.js"></script>
+<script>stLight.options({publisher:'04bdc9ae-0156-4f22-9738-578ab5994f7d',tracking:'google'});</script>
+<div id="socializ" style="top: 20px; opacity: 0.6;">
+<div style="margin: 2px 0 5px 0;"><span class="st_email_button" displaytext="Email" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stMainServices st-email-counter" style="background-image: url(&quot;https://ws.sharethis.com/images/2017/email_counter.png&quot;);">&nbsp;</span></span></span></div>
+<span class="st_sharethis_vcount" st_url="http://www.cambridgeincolour.com/tutorials/image-interpolation.htm" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><div><div class="stBubble" style="display: block;"><div class="stBubble_count">96.3K</div></div><span class="stMainServices st-sharethis-counter" style="background-image: url(&quot;https://ws.sharethis.com/images/2017/sharethis_counter.png&quot;);">&nbsp;</span></div></span></span>
+<div style="margin-bottom: -30px; margin-top: 10px; margin-left: 8px;">
+<iframe src="./Understanding Digital Image Interpolation_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:90px;" allowtransparency="true"></iframe>
+</div>
+</div>
+<script src="./Understanding Digital Image Interpolation_files/717120793.js"></script>
+<div class="left-decor" style="display: block;"></div>
+<div class="right-decor" style="display: block;"></div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+<div id="copy"><span class="first">Copyright © 2005-2020 Cambridge in Colour</span>|<span><a href="https://www.cambridgeincolour.com/gallery/cambridge.htm">Gallery</a></span>|<span><a href="https://www.cambridgeincolour.com/about.htm">About</a></span>|<span><a href="https://www.cambridgeincolour.com/contact.htm">Contact Us</a></span></div>
+<ul id="f-social">
+<li class="li-1"><a href="https://www.cambridgeincolour.com/subscribe/form.htm">Email</a></li>
+<li class="li-3"><a href="https://www.facebook.com/cambridgeincolour" target="_blank" rel="noopener">Facebook</a></li>
+<li class="li-4"><a href="https://twitter.com/#!/cambridgecolour" target="_blank" rel="noopener">Twitter</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="mobile-menu" class="sidebar panel" role="navigation" style="position: fixed; top: 0px; bottom: 0px; height: 100%; right: -280px; width: 280px; transition: right 300ms ease 0s;">
+<div class="sidebar-wrapper">
+<ul id="mobile-nav" class=""><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-611"><a href="https://www.cambridgeincolour.com/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-990"><a target="_blank" rel="noopener" href="https://www.cambridgeincolour.com/books/understanding-photography-v2/">Books</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-612"><a href="https://www.cambridgeincolour.com/photography-tools.htm">Tools</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-613"><a>Tutorials</a>
+<ul class="sub-menu">
+<li class="li-1 menu-item menu-item-type-post_type menu-item-object-page menu-item-614"><a href="https://www.cambridgeincolour.com/learn-photography-concepts.htm">Concepts &amp; Terminology</a></li>
+<li class="li-2 menu-item menu-item-type-post_type menu-item-object-page menu-item-616"><a href="https://www.cambridgeincolour.com/camera-equipment.htm">Using Camera Equipment</a></li>
+<li class="li-3 menu-item menu-item-type-post_type menu-item-object-page menu-item-617"><a href="https://www.cambridgeincolour.com/photo-editing-tutorials.htm">Editing &amp; Post-Processing</a></li>
+<li class="li-4 menu-item menu-item-type-post_type menu-item-object-page menu-item-618"><a href="https://www.cambridgeincolour.com/color-management-printing.htm">Color Management &amp; Printing</a></li>
+<li class="li-5 menu-item menu-item-type-post_type menu-item-object-page menu-item-619"><a href="https://www.cambridgeincolour.com/photography-techniques.htm">Photo Techniques &amp; Styles</a></li>
+<li class="li-6 menu-item menu-item-type-post_type menu-item-object-page menu-item-620"><a href="https://www.cambridgeincolour.com/tutorials.htm">all photography tutorials</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-621"><a href="https://www.cambridgeincolour.com/forums/">Forums</a></li>
+</ul>	</div>
+</div>
+<script src="./Understanding Digital Image Interpolation_files/bigSlide.min.js+jquery.matchHeight-min.js+owl.carousel.min.js+jquery.fitvids.js+remodal.js+application.js.pagespeed.jc.BTl-3OUWZG.js"></script><script>eval(mod_pagespeed_N$78V3jDbB);</script>
+<script>eval(mod_pagespeed_DiJ5JPapbm);</script>
+<script>eval(mod_pagespeed_M6EKUk$HGB);</script>
+<script>eval(mod_pagespeed_ONcsJphpot);</script>
+<script>eval(mod_pagespeed_cyfocUiwcs);</script>
+<script>eval(mod_pagespeed_8eItmPVRtg);</script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/wp-polyfill.min.js.pagespeed.jm.yZ1Y6zDT_2.js" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wp-polyfill-js-after">('fetch'in window)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js"></scr'+'ipt>');(document.contains)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js"></scr'+'ipt>');(window.DOMRect)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js"></scr'+'ipt>');(window.URL&&window.URL.prototype&&window.URLSearchParams)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-url.min.js"></scr'+'ipt>');(window.FormData&&window.FormData.prototype.keys)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js"></scr'+'ipt>');(Element.prototype.matches&&Element.prototype.closest)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js"></scr'+'ipt>');('objectFit'in document.documentElement.style)||document.write('<script src="https://www.cambridgeincolour.com/cms/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js"></scr'+'ipt>');</script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/hooks.min.js.pagespeed.jm.HqdOiLdfga.js" id="wp-hooks-js"></script>
+<script type="text/javascript" id="wpdreams-ajaxsearchlite-js-before">window.ASL=typeof window.ASL!=='undefined'?window.ASL:{};window.ASL.ajaxurl="https:\/\/www.cambridgeincolour.com\/cms\/wp-content\/plugins\/ajax-search-lite\/ajax_search.php";window.ASL.backend_ajaxurl="https:\/\/www.cambridgeincolour.com\/cms\/wp-admin\/admin-ajax.php";window.ASL.js_scope="jQuery";window.ASL.detect_ajax=0;window.ASL.scrollbar="";window.ASL.js_retain_popstate=0;window.ASL.version=4748;window.ASL.min_script_src=["https:\/\/www.cambridgeincolour.com\/cms\/wp-content\/plugins\/ajax-search-lite\/js\/min\/jquery.ajaxsearchlite.min.js"];window.ASL.highlight={"enabled":false,"data":[]};window.ASL.fix_duplicates=1;window.ASL.analytics={"method":"pageview","tracking_id":"","string":"?ajax_search={asl_term}","event":{"focus":{"active":1,"action":"focus","category":"ASL","label":"Input focus","value":"1"},"search_start":{"active":0,"action":"search_start","category":"ASL","label":"Phrase: {phrase}","value":"1"},"search_end":{"active":1,"action":"search_end","category":"ASL","label":"{phrase} | {results_count}","value":"1"},"magnifier":{"active":1,"action":"magnifier","category":"ASL","label":"Magnifier clicked","value":"1"},"return":{"active":1,"action":"return","category":"ASL","label":"Return button pressed","value":"1"},"facet_change":{"active":0,"action":"facet_change","category":"ASL","label":"{option_label} | {option_value}","value":"1"},"result_click":{"active":1,"action":"result_click","category":"ASL","label":"{result_title} | {result_url}","value":"1"}}};</script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/jquery.ajaxsearchlite.min.js.pagespeed.jm.PDR9sW9oUi.js" id="wpdreams-ajaxsearchlite-js"></script>
+<script type="text/javascript" src="./Understanding Digital Image Interpolation_files/OneSignalSDK.js" async="async" id="remote_sdk-js"></script>
+<script>window.advads_has_ads=[["1053","ad",null],["1057","ad",null]];(window.advanced_ads_ready||jQuery(document).ready).call(null,function(){if(!window.advanced_ads_pro){console.log("Advanced Ads Pro: cache-busting can not be initialized");}});</script>
+	</div><div><style type="text/css">#af-form-717120793 .af-body .af-textWrap{width:98%;display:block;float:none;}
+#af-form-717120793 .af-body a{color:#094C80;text-decoration:underline;font-style:normal;font-weight:normal;}
+#af-form-717120793 .af-body input.text, #af-form-717120793 .af-body textarea{background-color:#FFFFFF;border-color:#919191;border-width:1px;border-style:solid;color:#000000;text-decoration:none;font-style:normal;font-weight:normal;font-size:13px;font-family:Verdana, sans-serif;}
+#af-form-717120793 .af-body input.text:focus, #af-form-717120793 .af-body textarea:focus{background-color:#FFFAD6;border-color:#030303;border-width:1px;border-style:solid;}
+#af-form-717120793 .af-body label.previewLabel{display:block;float:none;text-align:left;width:auto;color:#FFFFFF;text-decoration:none;font-style:normal;font-weight:normal;font-size:12px;font-family:Verdana, sans-serif;}
+#af-form-717120793 .af-body{padding-bottom:15px;padding-top:15px;background-repeat:no-repeat;background-position:inherit;background-image:none;color:#000000;font-size:11px;font-family:Verdana, sans-serif;}
+#af-form-717120793 .af-footer{padding-bottom:5px;padding-top:5px;padding-right:15px;padding-left:15px;background-color:#transparent;border-width:1px;border-bottom-style:none;border-left-style:none;border-right-style:none;border-top-style:none;color:#000000;font-size:12px;font-family:Verdana, sans-serif;}
+#af-form-717120793 .af-header{padding-bottom:50px;padding-top:50px;padding-right:10px;padding-left:10px;background-color:#000000;background-repeat:no-repeat;background-position:center;background-image:url("//cdn.cambridgeincolour.com/images/ciclogo-550b.png");border-color:#000000;border-width:5px;border-bottom-style:none;border-left-style:none;border-right-style:none;border-top-style:none;color:#FFFFFF;font-size:16px;font-family:Verdana, sans-serif;}
+#af-form-717120793 .af-quirksMode .bodyText{padding-top:2px;padding-bottom:2px;}
+#af-form-717120793 .af-quirksMode{padding-right:75px;padding-left:75px;}
+#af-form-717120793 .af-standards .af-element{padding-right:75px;padding-left:75px;}
+#af-form-717120793 .bodyText p{margin:1em 0;}
+#af-form-717120793 .buttonContainer input.submit{background-image:none;background-color:#2B78AB;color:#FFFFFF;text-decoration:none;font-style:normal;font-weight:normal;font-size:12px;font-family:Verdana, sans-serif;}
+#af-form-717120793 .buttonContainer input.submit{width:auto;}
+#af-form-717120793 .buttonContainer{text-align:left;}
+#af-form-717120793 body,#af-form-717120793 dl,#af-form-717120793 dt,#af-form-717120793 dd,#af-form-717120793 h1,#af-form-717120793 h2,#af-form-717120793 h3,#af-form-717120793 h4,#af-form-717120793 h5,#af-form-717120793 h6,#af-form-717120793 pre,#af-form-717120793 code,#af-form-717120793 fieldset,#af-form-717120793 legend,#af-form-717120793 blockquote,#af-form-717120793 th,#af-form-717120793 td{float:none;color:inherit;position:static;margin:0;padding:0;}
+#af-form-717120793 button,#af-form-717120793 input,#af-form-717120793 submit,#af-form-717120793 textarea,#af-form-717120793 select,#af-form-717120793 label,#af-form-717120793 optgroup,#af-form-717120793 option{float:none;position:static;margin:0;}
+#af-form-717120793 div{margin:0;}
+#af-form-717120793 fieldset{border:0;}
+#af-form-717120793 form,#af-form-717120793 textarea,.af-form-wrapper,.af-form-close-button,#af-form-717120793 img{float:none;color:inherit;position:static;background-color:none;border:none;margin:0;padding:0;}
+#af-form-717120793 input,#af-form-717120793 button,#af-form-717120793 textarea,#af-form-717120793 select{font-size:100%;}
+#af-form-717120793 p{color:inherit;}
+#af-form-717120793 select,#af-form-717120793 label,#af-form-717120793 optgroup,#af-form-717120793 option{padding:0;}
+#af-form-717120793 table{border-collapse:collapse;border-spacing:0;}
+#af-form-717120793 ul,#af-form-717120793 ol{list-style-image:none;list-style-position:outside;list-style-type:disc;padding-left:40px;}
+#af-form-717120793,#af-form-717120793 .quirksMode{width:100%;max-width:490px;}
+#af-form-717120793.af-quirksMode{overflow-x:hidden;}
+#af-form-717120793{background-color:#3E3E3E;border-color:#000000;border-width:5px;border-style:none;}
+#af-form-717120793{display:block;}
+.af-body .af-textWrap{text-align:left;}
+.af-body input.image{border:none!important;}
+.af-body input.submit,.af-body input.image,.af-form .af-element input.button{float:none!important;}
+.af-body input.submit{white-space:inherit;}
+.af-body input.text{width:100%;float:none;padding:2px!important;}
+.af-body.af-standards input.submit{padding:4px 12px;}
+.af-clear{clear:both;}
+.af-element label{text-align:left;display:block;float:left;}
+.af-element{padding-bottom:5px;padding-top:5px;}
+.af-form-wrapper{text-indent:0;}
+.af-form{box-sizing:border-box;text-align:left;margin:auto;}
+.af-header,.af-footer{margin-bottom:0;margin-top:0;padding:10px;}
+.af-quirksMode .af-element{padding-left:0!important;padding-right:0!important;}
+.dropShadowBottom717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-bottom.png) repeat-x;width:488px;height:10px;float:left;margin-bottom:0;line-height:0;font-size:0;padding:0;}
+.dropShadowL717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-left.png) repeat-y;line-height:0;font-size:0;width:10px;height:100%;float:left;margin-bottom:0;}
+.dropShadowLL717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-bottomLeft.png) no-repeat;width:10px;height:10px;float:left;margin-bottom:0;line-height:0;font-size:0;padding:0;}
+.dropShadowLR717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-bottomRight.png) no-repeat;width:10px;height:10px;float:left;margin-bottom:0;line-height:0;font-size:0;padding:0;}
+.dropShadowR717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-right.png) repeat-y;width:10px;height:100%;float:right;margin-bottom:0;}
+.dropShadowTop717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-top.png) repeat-x;width:488px;height:10px!important;line-height:0;font-size:0;float:left;margin-bottom:0;padding:0;}
+.dropShadowUL717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-topLeft.png) no-repeat;width:10px;height:10px!important;float:left;margin-bottom:0;line-height:0;font-size:0;padding:0;}
+.dropShadowUR717120793{background:url(https://awas.aweber-static.com/images/wfg/drop-topRight.png) no-repeat;width:10px;line-height:0;font-size:0;height:10px!important;float:left;margin-bottom:0;padding:0;}
+.lbl-right .af-element label{text-align:right;}
+body {
+}
+</style></div><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/ads(7).html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" data-anchor-status="dismissed" style="display: block; width: 100% !important; height: 129px !important; bottom: -124px; clear: none !important; float: none !important; left: 0px; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1; overflow: visible !important; padding: 0px !important; position: fixed; right: auto !important; top: auto !important; vertical-align: baseline !important; visibility: visible !important; z-index: 2147483647; background: rgb(250, 250, 250) !important;" data-ad-status="filled" data-anchor-shown="true"><div class="grippy-host"></div><div id="aswift_8_host" style="border: none !important; height: 124px !important; width: 100% !important; margin: 0px !important; padding: 0px !important; position: relative !important; visibility: visible !important; background-color: transparent !important; display: inline-block !important; inset: auto !important; clear: none !important; float: none !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; vertical-align: baseline !important; z-index: auto !important;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_8" name="aswift_8" style="width: 1005px !important; height: 124px !important; display: block; margin: 0px auto;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1005" height="124" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/zrt_lookup.html" data-google-container-id="a!9" data-google-query-id="CNXCzrSu6vwCFUTu7QodoJcEdw" data-load-complete="true"></iframe></div></ins><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" data-side-rail-status="idle" style="display: none !important; margin: 0px !important; padding: 0px !important; position: fixed !important; left: 1px !important; top: -159px !important; z-index: 1 !important; opacity: 0 !important; transition: all 500ms ease-in 0s !important;" data-ad-status="filled"><div id="aswift_9_host" style="border: none; height: 600px; width: 120px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_9" name="aswift_9" style="width:120px !IMPORTANT;height:600px !IMPORTANT" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="120" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/zrt_lookup(1).html" data-google-container-id="a!a" data-google-query-id="CNbCzrSu6vwCFUTu7QodoJcEdw" data-load-complete="true"></iframe></div><span class="left-side-rail-edge" style="background: rgb(250, 250, 250) !important; position: absolute !important; left: 0px !important; top: 600px !important; width: 120px !important; height: 5px !important; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important;"></span><span class="left-side-rail-dismiss-btn" style="background: rgb(250, 250, 250) !important; position: absolute !important; left: 35px !important; right: 35px !important; top: 605px !important; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important;"><svg style="position: absolute !important; top: 0px !important; display: block !important; width: 50px !important; height: 30px !important; margin-top: -5px !important; transform: none !important; pointer-events: initial !important;"><defs><filter id="left-side-rail-drop-shadow" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><fecomponenttransfer in="SourceAlpha" result="TransferredAlpha"><fefuncr type="discrete" tableValues="0.5"></fefuncr><fefuncg type="discrete" tableValues="0.5"></fefuncg><fefuncb type="discrete" tableValues="0.5"></fefuncb></fecomponenttransfer><fegaussianblur in="TransferredAlpha" stdDeviation="2"></fegaussianblur><feoffset dx="0" dy="0" result="offsetblur"></feoffset><femerge><femergenode></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter></defs><path d="M5,5 L5,17 A8,8 0 0,0 13,25 L37,25 A8,8 0 0,0 45,17 L45,5 Z" stroke="#FAFAFA" stroke-width="1" fill="#FAFAFA" style="filter: url(&quot;#left-side-rail-drop-shadow&quot;);"></path><rect x="0" y="0" width="50" height="5" style="fill: rgb(250, 250, 250);"></rect><g stroke="#616161" stroke-width="2px" stroke-linecap="square"><line x1="18" y1="18" x2="25" y2="12"></line><line x1="25" y1="12" x2="32" y2="18"></line></g></svg></span></ins><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" data-side-rail-status="idle" style="display: none !important; margin: 0px !important; padding: 0px !important; position: fixed !important; right: 19px !important; top: -125.667px !important; z-index: 1 !important; opacity: 0 !important; transition: all 500ms ease-in 0s !important;" data-ad-status="filled"><div id="aswift_10_host" style="border: none; height: 500px; width: 180px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_10" name="aswift_10" style="width:180px !IMPORTANT;height:500px !IMPORTANT" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="180" height="500" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Understanding Digital Image Interpolation_files/zrt_lookup(2).html" data-google-container-id="a!b" data-google-query-id="CNfCzrSu6vwCFUTu7QodoJcEdw" data-load-complete="true"></iframe></div><span class="right-side-rail-edge" style="background: rgb(250, 250, 250) !important; position: absolute !important; left: 0px !important; top: 500px !important; width: 180px !important; height: 5px !important; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important;"></span><span class="right-side-rail-dismiss-btn" style="background: rgb(250, 250, 250) !important; position: absolute !important; left: 65px !important; right: 65px !important; top: 505px !important; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important;"><svg style="position: absolute !important; top: 0px !important; display: block !important; width: 50px !important; height: 30px !important; margin-top: -5px !important; transform: none !important; pointer-events: initial !important;"><defs><filter id="right-side-rail-drop-shadow" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><fecomponenttransfer in="SourceAlpha" result="TransferredAlpha"><fefuncr type="discrete" tableValues="0.5"></fefuncr><fefuncg type="discrete" tableValues="0.5"></fefuncg><fefuncb type="discrete" tableValues="0.5"></fefuncb></fecomponenttransfer><fegaussianblur in="TransferredAlpha" stdDeviation="2"></fegaussianblur><feoffset dx="0" dy="0" result="offsetblur"></feoffset><femerge><femergenode></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter></defs><path d="M5,5 L5,17 A8,8 0 0,0 13,25 L37,25 A8,8 0 0,0 45,17 L45,5 Z" stroke="#FAFAFA" stroke-width="1" fill="#FAFAFA" style="filter: url(&quot;#right-side-rail-drop-shadow&quot;);"></path><rect x="0" y="0" width="50" height="5" style="fill: rgb(250, 250, 250);"></rect><g stroke="#616161" stroke-width="2px" stroke-linecap="square"><line x1="18" y1="18" x2="25" y2="12"></line><line x1="25" y1="12" x2="32" y2="18"></line></g></svg></span></ins><div id="stcpDiv" style="position: absolute; top: -1999px; left: -1988px;">ShareThis Copy and Paste</div><iframe src="./Understanding Digital Image Interpolation_files/aframe.html" width="0" height="0" style="display: none;"></iframe><div id="stwrapper" class="stwrapper stwrapper4x stwrapper4x" style="display: none;"><iframe allowtransparency="true" id="stLframe" class="stLframe" name="stLframe" frameborder="0" scrolling="no" src="./Understanding Digital Image Interpolation_files/index(2).html"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();"></div></body><iframe id="google_esf" name="google_esf" src="./Understanding Digital Image Interpolation_files/zrt_lookup(3).html" style="display: none;"></iframe></html>

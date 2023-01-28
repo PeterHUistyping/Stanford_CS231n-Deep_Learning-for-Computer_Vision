@@ -28,3 +28,9 @@ Q2: Training a Support Vector Machine \
 Q3: Implement a Softmax classifier \
 Q4: Two-Layer Neural Network \
 Q5: Higher Level Representations: Image Features Submitting your work$$
+
+## Assignment1: Image Classification Pipeline
+### k-Nearest Neighbor (kNN)
+Training: the classifier takes the training data and simply remembers it.\
+Testing: kNN classifies every test image by comparing to all training images and transfering the labels of the k most similar training examples.\
+The value of k is cross-validated
