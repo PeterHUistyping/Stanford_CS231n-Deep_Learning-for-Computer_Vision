@@ -43,9 +43,15 @@ test data.\
 Distance Matrics, L1, L2 distances, np.linalg.norm()\
 Cross-validation: the value of k is cross-validated
 
+## Linear Classifier
+Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term\
+Loss function \
+Regularization
 ### SVM
 
+
 ### Softmax
+
 Implement a fully-vectorized loss function, analytic gradient expression \
 Validation set to tune the learning rate and regularization strength \
 Optimize the loss function with SGD \
