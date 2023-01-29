@@ -32,8 +32,8 @@ Q5: Higher Level Representations: Image Features Submitting your work$$
 ## Assignment1: Image Classification Pipeline
 Data-driven approach (train/predict stages)\
 Training data shape:  (50000, 32, 32, 3)\
-Training labels shape:  (50000,)
-
+Training labels shape:  (50000,) \
+The CIFAR-10 dataset: 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
 ### k-Nearest Neighbor (kNN)
 Training: the classifier takes the training data and simply remembers it.\
 Testing: kNN classifies every test image by comparing to all training images and transfering the labels of the k most similar training examples.\
@@ -42,3 +42,12 @@ in self.X_train using a (nested) loop over both the training data and the
 test data.\
 Distance Matrics, L1, L2 distances, np.linalg.norm()\
 Cross-validation: the value of k is cross-validated
+
+### SVM
+
+### Softmax
+Implement a fully-vectorized loss function, analytic gradient expression \
+Validation set to tune the learning rate and regularization strength \
+Optimize the loss function with SGD \
+Visualize the final learned weights
+### Two-Layer Neural Network
