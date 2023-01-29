@@ -41,4 +41,4 @@ Compute the distance between each test point in X and each training point
 in self.X_train using a (nested) loop over both the training data and the
 test data.\
 Distance Matrics, L1, L2 distances, np.linalg.norm()\
-The value of k is cross-validated
+Cross-validation: the value of k is cross-validated

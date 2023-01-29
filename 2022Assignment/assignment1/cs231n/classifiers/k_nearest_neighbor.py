@@ -100,7 +100,7 @@ class KNearestNeighbor(object):
             #######################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            dists[i]=np.sqrt(np.sum(np.square(self.X_train-X[i]),axis=1))
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
@@ -129,9 +129,19 @@ class KNearestNeighbor(object):
         #       and two broadcast sums.                                         #
         #########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
-        pass
-
+        # print((np.sum(X ** 2,axis=1,keepdims=True)).shape)
+        # print((np.sum(X ** 2,axis=1,keepdims=True)+np.sum(self.X_train ** 2,axis=1)).shape)
+        dists = np.sqrt(np.sum(X ** 2,axis=1,keepdims=True) + np.sum(self.X_train ** 2,axis=1) - 2 * np.dot(X,self.X_train.T))
+                                                    # (500, 1)          (5000,1)    Broadcasting
+        # y=self.X_train.T
+        # temp=X.dot(y)
+        # temp=temp*2
+        # x2=np.sum(np.square(X),axis=1).reshape(-1,1)
+        # y2=np.sum(np.square(y),axis=0).reshape(1,-1)
+        # # print(temp.shape)
+        # print(x2.shape)
+        # print(y2.shape)
+        # c=x2+y2
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
 
