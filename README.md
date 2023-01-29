@@ -45,15 +45,14 @@ Cross-validation: the value of k is cross-validated
 
 ## Linear Classifier
 Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term\
-Loss function \
-Regularization
+Implement a fully-vectorized loss function, analytic gradient expression \
+Validation set to tune the learning rate and regularization strength \
+Optimize the loss function with SGD \
+Visualize the final learned weights
 ### SVM
 
 
 ### Softmax
 
-Implement a fully-vectorized loss function, analytic gradient expression \
-Validation set to tune the learning rate and regularization strength \
-Optimize the loss function with SGD \
-Visualize the final learned weights
+
 ### Two-Layer Neural Network
