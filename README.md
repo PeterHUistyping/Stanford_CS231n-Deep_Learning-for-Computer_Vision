@@ -37,7 +37,6 @@ The CIFAR-10 dataset: 32x32 colour images in 10 classes, with 6000 images per cl
 Training data shape:  (50000, 32, 32, 3) 
 Training labels shape:  (50000,) 
 ```
-
 ### k-Nearest Neighbor (kNN)
 Training: the classifier takes the training data and simply remembers it.<br>
 Testing: kNN classifies every test image by comparing to all training images and transfering the labels of the k most similar training examples.<br>
@@ -47,6 +46,7 @@ test data.<br>
 Distance Matrics, L1, L2 distances, np.linalg.norm()<br>
 Cross-validation: the value of k is cross-validated
 ![Cross-validation](2022Assignment/Photo/Cross-Validation_on_k.png)
+
 ## Linear Classifier: parametric approach
 Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term<br>
 Implement a fully-vectorized loss function, analytic gradient expression <br>
