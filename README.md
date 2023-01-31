@@ -30,11 +30,13 @@ Q4: Two-Layer Neural Network <br>
 Q5: Higher Level Representations: Image Features Submitting your work 
 
 ## Assignment1: Image Classification Pipeline
-Data-driven approach (train/predict stages)
-```
-Training data shape:  (50000, 32, 32, 3)<br>
-Training labels shape:  (50000,) <br>
+Data-driven approach (train/predict stages) <br >
 The CIFAR-10 dataset: 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
+```
+Training data shape:  (50000, 32, 32, 3) 
+Training labels shape:  (50000,) 
+```
+
 ![CIFAR-10](2022Assignment/Photo/CIFAR-10.png)
 ### k-Nearest Neighbor (kNN)
 Training: the classifier takes the training data and simply remembers it.<br>
