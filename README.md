@@ -35,6 +35,7 @@ Data-driven approach (train/predict stages)
 Training data shape:  (50000, 32, 32, 3)<br>
 Training labels shape:  (50000,) <br>
 The CIFAR-10 dataset: 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
+![CIFAR-10](2022Assignment/Photo/CIFAR-10.png)
 ### k-Nearest Neighbor (kNN)
 Training: the classifier takes the training data and simply remembers it.<br>
 Testing: kNN classifies every test image by comparing to all training images and transfering the labels of the k most similar training examples.<br>
@@ -43,7 +44,7 @@ in self.X_train using a (nested) loop over both the training data and the
 test data.<br>
 Distance Matrics, L1, L2 distances, np.linalg.norm()<br>
 Cross-validation: the value of k is cross-validated
-
+![Cross-validation](2022Assignment/Photo/Cross-Validation_on_k.png)
 ## Linear Classifier: parametric approach
 Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term<br>
 Implement a fully-vectorized loss function, analytic gradient expression <br>
