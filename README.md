@@ -43,16 +43,16 @@ test data.\
 Distance Matrics, L1, L2 distances, np.linalg.norm()\
 Cross-validation: the value of k is cross-validated
 
-## Linear Classifier
+## Linear Classifier: parametric approach
 Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term\
 Implement a fully-vectorized loss function, analytic gradient expression \
 Validation set to tune the learning rate and regularization strength \
 Optimize the loss function with SGD \
 Visualize the final learned weights
 ### SVM
-
+Loss Function: max-margin loss\
 
 ### Softmax
-
+Loss Function: cross-entropy\
 
 ### Two-Layer Neural Network
