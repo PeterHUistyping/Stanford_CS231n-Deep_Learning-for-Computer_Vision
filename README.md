@@ -12,7 +12,7 @@ Functions,
 Classes <br>
 ·Numpy
 Arrays, 
-Array indexing (** Boolean/ Integer Array Indexing**)
+Array indexing (**Boolean/ Integer Array Indexing**)
 Datatypes, 
 Array math, 
 Broadcasting <br>
@@ -45,7 +45,7 @@ in self.X_train using a (nested) loop over both the training data and the
 test data.<br>
 Distance Matrics, L1, L2 distances, np.linalg.norm()<br>
 Cross-validation: the value of k is cross-validated
-![Cross-validation](2022Assignment/Photo/Cross-Validation_on_k.png)
+![knn_Cross-validation](2022Assignment/Photo/Cross-Validation_on_k.png)
 
 ## Linear Classifier: parametric approach
 Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term<br>
@@ -55,7 +55,9 @@ Optimize the loss function with SGD <br>
 Visualize the final learned weights
 ### SVM
 Loss Function: max-margin loss<br>
-
+Analytic gradient: exact, fast, error-prone <br>
+Gradient Check: using easy-to-write Numerical gradient to make sure everything is right.
+![svm_Cross-validation](2022Assignment/Photo/svm_Cross-validation.png)
 ### Softmax
 Loss Function: cross-entropy<br>
 

@@ -37,7 +37,8 @@ def svm_loss_naive(W, X, y, reg):
             margin = scores[j] - correct_class_score + 1  # note delta = 1
             if margin > 0:
                 loss += margin
-
+                dW[:,j] += X[i].T
+                dW[:,y[i]] += -X[i].T 
     # Right now the loss is a sum over all training examples, but we want it
     # to be an average instead so we divide by num_train.
     loss /= num_train
@@ -55,7 +56,8 @@ def svm_loss_naive(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    dW /= num_train
+    dW += 2* reg* W
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -78,7 +80,22 @@ def svm_loss_vectorized(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+     # compute the loss and the gradient
+    num_classes = W.shape[1]
+    num_train = X.shape[0]
+    x_index=np.arange(0,X.shape[0]) #  "diagonal" pair
+    loss = 0.0
+    scores = X.dot(W)
+    margin = scores - scores[x_index,y].reshape((-1,1)) + 1   # note delta = 1
+    margin[x_index,y]=0
+    loss = np.sum(margin*(margin>0)) / num_train
+
+    # Right now the loss is a sum over all training examples, but we want it
+    # to be an average instead so we divide by num_train.
+    
+    # Add regularization to the loss.
+    loss += reg * np.sum(W * W)
+
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -92,9 +109,12 @@ def svm_loss_vectorized(W, X, y, reg):
     # loss.                                                                     #
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
-    pass
-
+ 
+    margin =np.ones((num_train,num_classes)) * (margin >0)
+    row_sum = np.sum(margin,axis =1)
+    margin[np.arange(num_train),y] = -row_sum   # pair
+    dW =np.dot(X.T,margin)/num_train +2*reg*W
+            #(D,N)  (N,C)
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
+    
     return loss, dW
