@@ -104,13 +104,24 @@ Loss function
 
 - fully-vectorized
 - **Gradient Check**
+
   - Analytic gradient: exact, fast, error-prone,
   - Numerical gradient: easy-to-write but slow.
   - Using the latter to make sure everything is right.
 - with regulation term
+
+  - L1 / L2 / Elastic net (L1+L2)
 - Optimize the loss function with SGD
 
-Visualize the final learned weights
+  - SGD  / SGD+Momentum / RMSProp  / Adam
+
+    - Adam is a good default choice in many cases; it often works ok even with constant learning rate
+    - SGD+Momentum can out perform Adam but may require more tuning of LR and schedule
+    - If full batch updates then try out L-BFGS (and don’t forget to disable all sources of noise)
+
+  ![Loss Linear](../MyProject22/Photo/LossLinear.png)
+
+- Visualize the final learned weights
 
 ![learned weights](../MyProject22/Photo/learnedWeights.png)
 

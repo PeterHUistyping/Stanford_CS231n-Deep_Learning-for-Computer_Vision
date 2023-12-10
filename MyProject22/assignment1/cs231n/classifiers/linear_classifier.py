@@ -66,6 +66,7 @@ class LinearClassifier(object):
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
+            # Approximate sum using a minibatch 
             indices=np.random.choice(num_train,batch_size,replace=True)
             # print(indices)
             X_batch=X[indices]
