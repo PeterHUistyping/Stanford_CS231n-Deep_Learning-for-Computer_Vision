@@ -2,7 +2,7 @@
 
 ### Assignment 0: Python Numpy
 
-[Python Tutorial](../MyProject22/assignment0/python.ipynb)
+[Python Tutorial](../MyProject22/assignment0_Python/python.ipynb)
 
 - Jupyter and Colab Notebooks
 - Python

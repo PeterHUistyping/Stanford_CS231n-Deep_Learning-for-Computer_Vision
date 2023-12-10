@@ -11,7 +11,7 @@
 
 2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment-2022.md)
 
-![CIFAR-10](../MyProject22/Photo/CIFAR-10.png)
+![CIFAR-10](./MyProject22/Photo/CIFAR-10.png)
 
 - Image Classification (Supervised Learning, Discrete label)
   * kNN
