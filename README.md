@@ -7,11 +7,18 @@
 
 [CS131 CV: Foundations and Applications 16-17](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
 
-## Assignment 2022
+## Project introduction
 
-This repo contains all the Assignment in 2022 of CS231, which includes Mathematical and Programming projects.
+2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment-2022.md)
 
-[Assignment Details and Note 2022](Doc/Assignment-2022.md)
+![CIFAR-10](../MyProject22/Photo/CIFAR-10.png)
+
+- Image Classification (Supervised Learning, Discrete label)
+  * kNN
+  * Softmax
+  * SVM classifier
+  * CNN
+  * Cross Validation
 
 ## Machine Learning Knowledge Sharing
 

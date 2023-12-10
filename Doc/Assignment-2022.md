@@ -2,7 +2,7 @@
 
 ### Assignment 0: Python Numpy
 
-[Python Tutorial](../2022Assignment/assignment0/python.ipynb)
+[Python Tutorial](../MyProject22/assignment0/python.ipynb)
 
 - Jupyter and Colab Notebooks
 - Python
@@ -28,37 +28,37 @@
 
 ## Assignment 1: Neural Networks
 
+Data-driven approach ( Train/ Predict stages)
+
 ## Image Classification Pipeline
 
-Data-driven approach (train/predict stages)
+*The CIFAR-10 dataset*
 
-The CIFAR-10 dataset: 32x32 resolution RGB colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
-![CIFAR-10](../2022Assignment/Photo/CIFAR-10.png)
+- 32x32 resolution RGB colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
+
+![CIFAR-10](../MyProject22/Photo/CIFAR-10.png)
 
 ```
 Training data shape:  (50000, 32, 32, 3) 
+# Training Images = 50000, Resolution = 32x32, RGB = 3, Class = 10.
 Training labels shape:  (50000,) 
 ```
 
 ### k-Nearest Neighbor (kNN)
 
-Q1: [k-Nearest Neighbor classifier](../2022Assignment/assignment1/knn.ipynb)
+Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
 
-Training: the classifier takes the training data and simply remembers it.
-
-Testing: kNN classifies every test image by comparing to all training images and transferring the labels of the k most similar training examples.
-
-Compute the distance between each test point in X and each training point
-in self.X_train using a (nested) loop over both the training data and the
-test data.
-
-Distance Matrics, L1, L2 distances, np.linalg.norm()
+- **Training**: take the training data and simply remembers it.
+- **Testing**:  classify every test image by comparing to all training images and transferring the labels of the k most similar training examples.
+  - compute the distance between each test point in X and each training point in self.X_train
+  - L1, L2 distances, *np.linalg.norm( )*
+  - using a (nested) loop over both the training data and the test data.
 
 Cross-validation: the value of k is cross-validated
 
-![knn_Cross-validation](../2022Assignment/Photo/Cross-Validation_on_k.png)
+![knn_Cross-validation](../MyProject22/Photo/Cross-Validation_on_k.png)
 
-## Linear Classifier: parametric approach
+## Linear Classifier: Parametric approach
 
 Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term
 
@@ -72,25 +72,26 @@ Visualize the final learned weights
 
 ### SVM
 
-[Q2: Training a Support Vector Machine](../2022Assignment/assignment1/svm.ipynb)
+Q2 [Training a Support Vector Machine](../MyProject22/assignment1/svm.ipynb)
 
 Loss Function: max-margin loss
 
 Analytic gradient: exact, fast, error-prone
 
 Gradient Check: using easy-to-write Numerical gradient to make sure everything is right.
-![svm_Cross-validation](../2022Assignment/Photo/svm_Cross-validation.png)
+
+![svm_Cross-validation](../MyProject22/Photo/svm_Cross-validation.png)
 
 ### Softmax
 
-[Q3: Implement a Softmax classifier](../2022Assignment/assignment1/softmax.ipynb)
+Q3 [Implement a Softmax classifier](../MyProject22/assignment1/softmax.ipynb)
 
 Loss Function: cross-entropy
 
 ### Two-Layer Neural Network
 
-[Q4: Two-Layer Neural Network](../2022Assignment/assignment1/two_layer_net.ipynb)
+Q4 [Two-Layer Neural Network](../MyProject22/assignment1/two_layer_net.ipynb)
 
 ## Image Features
 
-[Q5: Higher Level Representations: Image Features](../2022Assignment/assignment1/features.ipynb)
+Q5 [Higher Level Representations: Image Features](../MyProject22/assignment1/features.ipynb)
