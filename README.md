@@ -11,8 +11,8 @@
 
 This repo contains all the Assignment in 2022 of CS231, which includes Mathematical and Programming projects.
 
-[Assignment-2022](Doc/Assignment-2022.md)
+[Assignment Details and Note 2022](Doc/Assignment-2022.md)
 
 ## Machine Learning Knowledge Sharing
 
-See more [ML_Guidance_Repo](https://github.com/PeterHUistyping/Machine_Learning_Guidance) about Machine Learning and Data Science in general 
+See more [ML_Guidance_Repo](https://github.com/PeterHUistyping/Machine_Learning_Guidance) about Machine Learning and Data Science in general
