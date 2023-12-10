@@ -11,7 +11,7 @@
 
 2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment-2022.md)
 
-Visualize the *CIFAR-10* dataset
+Visualize the [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
 
 ```
 idxs = np.random.choice(idxs, samples_per_class, replace=False) 

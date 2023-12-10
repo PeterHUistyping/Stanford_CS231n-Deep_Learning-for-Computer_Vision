@@ -1,29 +1,27 @@
-## Assignment 2022
+## Summary of Assignment  
 
-### Assignment 0: Python Numpy
+Stanford CS231n Computer Vision (2022)
+
+## Assignment 0: Python Numpy
 
 [Python Tutorial](../MyProject22/assignment0_Python/python.ipynb)
 
 - Jupyter and Colab Notebooks
 - Python
-
   - Basic data types, Containers(Lists, Dictionaries, Sets, Tuples)
   - Functions
   - Classes
 - Numpy
-
   - Arrays
   - Array indexing (**Boolean/ Integer Array Indexing**)
   - Datatypes
   - Array math
   - Broadcasting
 - SciPy
-
   - Image operations
   - MATLAB files
   - Distance between points
 - Matplotlib
-
   - Plotting, Subplots, Images
 
 ## Assignment 1: Neural Networks
@@ -32,7 +30,7 @@ Data-driven approach ( Train/ Predict stages)
 
 ## Image Classification Pipeline
 
-*The CIFAR-10 dataset*
+[The CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
 
 - 32x32 resolution RGB colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
 
@@ -54,12 +52,24 @@ Training labels shape:  (50000,)
 
 Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
 
-- **Training**: take the training data and simply remembers it.
+- **Training**: take the training data (num_train, D) and simply remembers it.
 - **Testing**:  classify every test image by comparing to all training images and transferring the labels of the k most similar training examples.
-  - compute the distance between each test point in X and each training point in self.X_train
-  - L1, L2 distances, *np.linalg.norm( )*
-  - using a (nested) loop over both the training data and the test data.
-  - the value of k is *cross-validated*
+
+  - compute the distance matrix between each test point in X and each training point  shape = **$N_{te} \times N_{tr}$**
+    ![DistanceMatrix](../MyProject22/Photo/DistanceMatrix.png)
+  - L1, L2 distances, np.linalg.norm()
+  - $$
+    ||X|| = \sqrt{|\sum_{i,j} x_{i,j}^2|}
+    $$
+  - Prediction
+
+  ```Python
+  '''For each test sample with index i''' 
+     closest_y= self.y_train[np.argsort(dists[i])[:k]]
+     y_pred[i]=np.argmax(np.bincount(closest_y))
+  ```
+
+  - the best value of k (hyperparameter) is *cross-validated*
 
 ![knn_Cross-validation](../MyProject22/Photo/Cross-Validation_on_k.png)
 

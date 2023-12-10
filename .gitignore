@@ -3,3 +3,5 @@
 .tmp.driveupload/
 .tmp.drivedownload/
  
+MyProject22/assignment1/.venv/
+__pycache__/

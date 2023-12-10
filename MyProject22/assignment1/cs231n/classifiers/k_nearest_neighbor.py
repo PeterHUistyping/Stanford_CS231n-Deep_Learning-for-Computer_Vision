@@ -77,7 +77,6 @@ class KNearestNeighbor(object):
                 #####################################################################
                 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
                 dists[i][j]=np.sqrt(np.sum(np.square(X[i]-self.X_train[j])))
-
                 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
 
@@ -128,11 +127,17 @@ class KNearestNeighbor(object):
         # HINT: Try to formulate the l2 distance using matrix multiplication    #
         #       and two broadcast sums.                                         #
         #########################################################################
-        # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         # print((np.sum(X ** 2,axis=1,keepdims=True)).shape)
         # print((np.sum(X ** 2,axis=1,keepdims=True)+np.sum(self.X_train ** 2,axis=1)).shape)
-        dists = np.sqrt(np.sum(X ** 2,axis=1,keepdims=True) + np.sum(self.X_train ** 2,axis=1) - 2 * np.dot(X,self.X_train.T))
-                                                    # (500, 1)          (5000,1)    Broadcasting
+
+        # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+      
+        dists = np.sqrt(np.sum(X ** 2,axis=1,keepdims=True) + 
+                        np.sum(self.X_train ** 2,axis=1) - 2 * np.dot(X,self.X_train.T))
+       
+        # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+
+        # (500, 1)          (5000,1)    Broadcasting
         # y=self.X_train.T
         # temp=X.dot(y)
         # temp=temp*2
@@ -142,7 +147,7 @@ class KNearestNeighbor(object):
         # print(x2.shape)
         # print(y2.shape)
         # c=x2+y2
-        # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        
         return dists
 
     def predict_labels(self, dists, k=1):
