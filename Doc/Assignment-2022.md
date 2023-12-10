@@ -77,7 +77,7 @@ Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
 
 ## Linear Classifier: Parametric approach
 
-$ y = f(x_{3072}, W_{10 \times 3072}) = W x +b $
+$ y = f(x_{3072}, W_{10 \times 3072}) = W x +b  + \alpha R(W)$
 
 [Linear Classifier](../MyProject22/assignment1/cs231n/classifiers/linear_classifier.py)
 
@@ -103,7 +103,10 @@ Preprocessing
 Loss function
 
 - fully-vectorized
-- analytic gradient expression
+- **Gradient Check**
+  - Analytic gradient: exact, fast, error-prone,
+  - Numerical gradient: easy-to-write but slow.
+  - Using the latter to make sure everything is right.
 - with regulation term
 - Optimize the loss function with SGD
 
@@ -122,6 +125,8 @@ Preprocessing:
 
 Loss Function: [Hinge loss](https://en.wikipedia.org/wiki/Hinge_loss) max-margin classification
 
+The SVM “wants” the correct class for each image to a have a score higher than the incorrect classes by some fixed margin Delta = 1.
+
 score vector $s=f(x_i,W)$
 
 $$
@@ -135,8 +140,6 @@ $$
 O _ _ 1 = = 2 = = 3.  delta_s 
 		    = correct class - incorrect class 
 ```
-
-**Gradient Check**: Analytic gradient: exact, fast, error-prone, using easy-to-write Numerical gradient to make sure everything is right.
 
 Split data into train, val; choose hyperparameter on val and evaluate on test
 
