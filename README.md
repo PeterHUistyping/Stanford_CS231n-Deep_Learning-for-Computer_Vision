@@ -11,6 +11,12 @@
 
 2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment-2022.md)
 
+Visualize the *CIFAR-10* dataset
+
+```
+idxs = np.random.choice(idxs, samples_per_class, replace=False) 
+```
+
 ![CIFAR-10](./MyProject22/Photo/CIFAR-10.png)
 
 - Image Classification (Supervised Learning, Discrete label)

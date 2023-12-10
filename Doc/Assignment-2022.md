@@ -36,6 +36,12 @@ Data-driven approach ( Train/ Predict stages)
 
 - 32x32 resolution RGB colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
 
+Visualize the dataset
+
+```
+idxs = np.random.choice(idxs, samples_per_class, replace=False) 
+```
+
 ![CIFAR-10](../MyProject22/Photo/CIFAR-10.png)
 
 ```
@@ -53,8 +59,7 @@ Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
   - compute the distance between each test point in X and each training point in self.X_train
   - L1, L2 distances, *np.linalg.norm( )*
   - using a (nested) loop over both the training data and the test data.
-
-Cross-validation: the value of k is cross-validated
+  - the value of k is *cross-validated*
 
 ![knn_Cross-validation](../MyProject22/Photo/Cross-Validation_on_k.png)
 
