@@ -121,7 +121,7 @@ Loss function
 
   ![Loss Linear](../MyProject22/Photo/LossLinear.png)
 
-- Visualize the final learned weights
+  - Visualize the final learned weights
 
 ![learned weights](../MyProject22/Photo/learnedWeights.png)
 
@@ -160,7 +160,15 @@ Split data into train, val; choose hyperparameter on val and evaluate on test
 
 Q3 [Implement a Softmax classifier](../MyProject22/assignment1/softmax.ipynb)
 
-Loss Function: cross-entropy
+$$
+P(Y=k |X=x_i)= \frac{exp(s_k)}{\sum_j exp(s_j)}
+$$
+
+Loss Function: [Cross-entropy](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjxzcKM4YWDAxXFR0EAHflmCksQFnoECBkQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FCross-entropy&usg=AOvVaw228IHK-lfaJa7UIBg6wMJX&opi=89978449)
+
+$$
+L_i = - log P(Y=y_i|X=x_i)
+$$
 
 ## Two-Layer Neural Network
 

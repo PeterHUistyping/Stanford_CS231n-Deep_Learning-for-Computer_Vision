@@ -34,7 +34,45 @@ def softmax_loss_naive(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    dW = np.zeros(W.shape)  # initialize the gradient as zero
+
+    # compute the loss and the gradient
+    num_classes = W.shape[1]
+    num_train = X.shape[0]
+    loss = 0.0
+    for i in range(num_train):
+        scores = X[i].dot(W)          # shape (C,1)    
+
+        # shift values for 'scores' for numeric reasons (overflow cautious -> \infinity )
+        scores -= scores.max()        # stable softmax
+
+        softmax_array = np.exp(scores)/np.sum(np.exp(scores)) # shape (C,1)
+
+        correct_class_score = scores[y[i]]
+
+        loss += - np.log(softmax_array[y[i]])
+       
+        # dL(i)/df(y[i]) = softmax_array(y[i]) - 1 , f = scores
+        scores_ = softmax_array.reshape(1,-1)   # shape (1,C)
+        scores_[:,y[i]] -= 1
+
+        # df(y[i]) / dW = X_i
+        dXi = X[i].T.reshape(-1,1)     # shape (D,1)
+
+        # Hence, dL / dW = (dL(i)/df)  * (df / dW) 
+        dW += np.dot(dXi, scores_)     # shape (D,C) 
+
+    # Loss over the dataset 
+    # = average of loss over all training examples
+    loss /= num_train
+
+    # Add regularization to the loss.
+    loss += reg * np.sum(W * W)
+
+    # Add regularization to the gradient.
+    dW /= num_train
+    dW += 2 * reg * W
+      
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -59,7 +97,41 @@ def softmax_loss_vectorized(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    num_classes = W.shape[1]
+    num_train = X.shape[0]
+
+    scores = X.dot(W)           # shape (N , C)
+
+    # shift values for 'scores' for numeric reasons (overflow cautious -> \infinity )
+    scores -= scores.max(axis = 1, keepdims = True)    # stable softmax
+
+    softmax_array = np.exp(scores)/np.sum(np.exp(scores), axis = 1, keepdims = True)   
+    # shape (N, C)
+
+    loss = -np.log(softmax_array[np.arange(num_train), y])  # shape (N, )
+
+    # loss is a single number
+    loss = np.sum(loss)                                     # shape (1, )
+
+    # Right now the loss is a sum over all training examples, but we want it
+    # to be an average instead so we divide by num_train.
+    loss /= num_train
+
+    # Add regularization to the loss.
+    loss += reg * np.sum(W * W)
+    
+    # df(y[i]) / dW = X_i
+
+    # dL(i)/df(y[i]) = softmax_array(y[i]) - 1 , f = scores
+    scores_ = softmax_array.reshape(num_train, -1)
+    scores_[np.arange(num_train), y] -= 1
+
+    # Hence, dL / dW = (dL(i)/df)  * (df / dW) 
+    dW = np.dot(X.T, scores_) / num_train
+    # (D,N) * (N,C) = (D, C)
+
+    # Add regularization loss to the gradient
+    dW += 2 * reg * W  
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
