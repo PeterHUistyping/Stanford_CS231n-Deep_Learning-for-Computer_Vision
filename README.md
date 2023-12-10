@@ -20,11 +20,18 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
 ![CIFAR-10](./MyProject22/Photo/CIFAR-10.png)
 
 - Image Classification (Supervised Learning, Discrete label)
+
   * kNN
+    * ![kNN-distance-matrix](./MyProject22/Photo/DistanceMatrix.png)
   * Softmax
-  * SVM classifier
+  * Multi-class SVM
   * CNN
   * Cross Validation
+- Cross Validation for hyperparameter
+
+  - Split data into train, val; choose hyperparameters on val and evaluate on test
+
+![kNN-k](./MyProject22/Photo/Cross-Validation_on_k.png)
 
 ## Machine Learning Knowledge Sharing
 

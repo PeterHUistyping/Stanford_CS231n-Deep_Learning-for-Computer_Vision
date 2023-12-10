@@ -1,4 +1,4 @@
-## Summary of Assignment  
+## Summary of Assignment
 
 Stanford CS231n Computer Vision (2022)
 
@@ -73,27 +73,72 @@ Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
 
 ![knn_Cross-validation](../MyProject22/Photo/Cross-Validation_on_k.png)
 
+[kNN Online Demo](http://vision.stanford.edu/teaching/cs231n-demos/knn/)
+
 ## Linear Classifier: Parametric approach
 
-Preprocessing: Reshape into single row; Normalization, center, scale; Add bias dimension term
+$ y = f(x_{3072}, W_{10 \times 3072}) = W x +b $
 
-Implement a fully-vectorized loss function, analytic gradient expression
+[Linear Classifier](../MyProject22/assignment1/cs231n/classifiers/linear_classifier.py)
 
-Validation set to tune the learning rate and regularization strength
+```
+Train data shape:  (49000, 32, 32, 3)
+Train labels shape:  (49000,)
 
-Optimize the loss function with SGD
+Validation data shape:  (1000, 32, 32, 3)
+Validation labels shape:  (1000,)
+# to tune the learning rate and regularization strength
+
+Test data shape:  (1000, 32, 32, 3)
+Test labels shape:  (1000,)
+```
+
+Preprocessing
+
+- Reshape image into flattened row  `(_,3072)`;
+- Normalization, center, scale;
+  - Subtract the mean image from train and test data
+- Add bias dimension term one
+
+Loss function
+
+- fully-vectorized
+- analytic gradient expression
+- with regulation term
+- Optimize the loss function with SGD
 
 Visualize the final learned weights
+
+![learned weights](../MyProject22/Photo/learnedWeights.png)
 
 ### SVM
 
 Q2 [Training a Support Vector Machine](../MyProject22/assignment1/svm.ipynb)
 
-Loss Function: max-margin loss
+Preprocessing:
 
-Analytic gradient: exact, fast, error-prone
+- Subtract the mean image from train and test data
+  - ![Mean-Image-validation](../MyProject22/Photo/MeanImageVisualization.png)
 
-Gradient Check: using easy-to-write Numerical gradient to make sure everything is right.
+Loss Function: [Hinge loss](https://en.wikipedia.org/wiki/Hinge_loss) max-margin classification
+
+score vector $s=f(x_i,W)$
+
+$$
+L_i = \sum_{j \neq y_i} max(0, s_j -s_i +1)
+$$
+
+```
+|\ Loss
+| \
+|   \
+O _ _ 1 = = 2 = = 3.  delta_s 
+		    = correct class - incorrect class 
+```
+
+**Gradient Check**: Analytic gradient: exact, fast, error-prone, using easy-to-write Numerical gradient to make sure everything is right.
+
+Split data into train, val; choose hyperparameter on val and evaluate on test
 
 ![svm_Cross-validation](../MyProject22/Photo/svm_Cross-validation.png)
 
@@ -103,7 +148,7 @@ Q3 [Implement a Softmax classifier](../MyProject22/assignment1/softmax.ipynb)
 
 Loss Function: cross-entropy
 
-### Two-Layer Neural Network
+## Two-Layer Neural Network
 
 Q4 [Two-Layer Neural Network](../MyProject22/assignment1/two_layer_net.ipynb)
 
