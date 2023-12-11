@@ -77,9 +77,13 @@ Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
 
 ## Linear Classifier: Parametric approach
 
-$ y = f(x_{3072}, W_{10 \times 3072}) = W x +b  + \alpha R(W)$
+Score function,
+
+$ y = f(x^{3072}, W^{10 \times 3072}) = W x +b  + \alpha R(W)$
 
 [Linear Classifier](../MyProject22/assignment1/cs231n/classifiers/linear_classifier.py)
+
+See more at Lecture 2-3 and related reading.
 
 ```
 Train data shape:  (49000, 32, 32, 3)
@@ -122,8 +126,6 @@ Loss function
   ![Loss Linear](../MyProject22/Photo/LossLinear.png)
 
   - Visualize the final learned weights
-
-![learned weights](../MyProject22/Photo/learnedWeights.png)
 
 ### SVM
 
@@ -170,9 +172,26 @@ $$
 L_i = - log P(Y=y_i|X=x_i)
 $$
 
+![learned weights](../MyProject22/Photo/learnedWeights.png)
+
 ## Two-Layer Neural Network
 
+Score function,
+
+$ y = f(x^{3072}, W_1^{H \times 3072}, W_2^{10 \times H}) =W_2 \sigma(W_1x + b_1) + b_2$
+
+Hierarchical computation $3072 \rightarrow H \rightarrow C=10$.
+
+- Activation function $\sigma$
+- Sigmoid / (Leeky) ReLU / tanh / Maxout / ReLU / ELU
+
+See more at Lecture 4 and related reading.
+
 Q4 [Two-Layer Neural Network](../MyProject22/assignment1/two_layer_net.ipynb)
+
+The architecure is 
+
+affine - relu - affine - softmax.
 
 ## Image Features
 

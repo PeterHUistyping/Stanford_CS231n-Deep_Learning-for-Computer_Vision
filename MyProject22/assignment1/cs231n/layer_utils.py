@@ -3,7 +3,7 @@ from .layers import *
 
 def affine_relu_forward(x, w, b):
     """
-    Convenience layer that perorms an affine transform followed by a ReLU
+    Convenience layer that performs an affine transform followed by a ReLU
 
     Inputs:
     - x: Input to the affine layer

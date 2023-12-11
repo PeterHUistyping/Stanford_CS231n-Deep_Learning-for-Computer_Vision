@@ -93,12 +93,11 @@ def svm_loss_vectorized(W, X, y, reg):
     # compute the loss and the gradient
     num_classes = W.shape[1]
     num_train = X.shape[0]
-    x_index=np.arange(0,X.shape[0]) #  "diagonal" pair         # shape (N,1)    0 .... N-1
     loss = 0.0
     scores = X.dot(W)               # shape (N,C)    
-    margin = scores - scores[x_index,y].reshape((-1,1)) + 1    # shape (N,C)    
+    margin = scores - scores[np.arange(num_train),y].reshape((-1,1)) + 1    # shape (N,C)    
     # note delta = 1
-    margin[x_index,y] = 0
+    margin[np.arange(num_train),y] = 0
 
     # max(margin, 0)
 
