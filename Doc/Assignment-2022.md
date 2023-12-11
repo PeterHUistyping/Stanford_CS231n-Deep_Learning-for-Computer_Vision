@@ -79,7 +79,7 @@ Q1 [k-Nearest Neighbor classifier](../MyProject22/assignment1/knn.ipynb)
 
 Score function,
 
-$ y = f(x^{3072}, W^{10 \times 3072}) = W x +b  + \alpha R(W)$
+$y = f(x^{3072}, W^{10 \times 3072}) = W x +b  + \alpha R(W)$
 
 [Linear Classifier](../MyProject22/assignment1/cs231n/classifiers/linear_classifier.py)
 
@@ -178,7 +178,7 @@ $$
 
 Score function,
 
-$ y = f(x^{3072}, W_1^{H \times 3072}, W_2^{10 \times H}) =W_2 \sigma(W_1x + b_1) + b_2$
+$y = f(x^{3072}, W_1^{H \times 3072}, W_2^{10 \times H}) =W_2 \sigma(W_1x + b_1) + b_2$
 
 Hierarchical computation $3072 \rightarrow H \rightarrow C=10$.
 
