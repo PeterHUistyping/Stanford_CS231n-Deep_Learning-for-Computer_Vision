@@ -193,6 +193,8 @@ The architecure is
 
 affine - relu - affine - softmax.
 
+![LossAcc](../MyProject22/Photo/LossAccTwoLayerNet.png)
+
 ## Image Features
 
 Q5 [Higher Level Representations: Image Features](../MyProject22/assignment1/features.ipynb)

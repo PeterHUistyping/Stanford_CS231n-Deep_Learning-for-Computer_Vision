@@ -25,6 +25,7 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
     * ![kNN-distance-matrix](./MyProject22/Photo/DistanceMatrix.png)
   * Softmax
   * Multi-class SVM
+  * MLP
   * CNN
   * Cross Validation
 - Cross Validation for hyperparameter
@@ -32,6 +33,10 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
   - Split data into train, val; choose hyperparameters on val and evaluate on test
 
 ![kNN-k](./MyProject22/Photo/Cross-Validation_on_k.png)
+
+*Two-Layer Neural Network architecure*: affine - relu - affine - softmax.
+
+![LossAcc](./MyProject22/Photo/LossAccTwoLayerNet.png)
 
 ## Machine Learning Knowledge Sharing
 
