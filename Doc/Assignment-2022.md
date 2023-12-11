@@ -198,3 +198,22 @@ affine - relu - affine - softmax.
 ## Image Features
 
 Q5 [Higher Level Representations: Image Features](../MyProject22/assignment1/features.ipynb)
+
+
+Color Histogram (hue channel in HSV);  Histogram of Oriented Gradients.
+
+
+## Assignment 2: Image classification further, CNN 
+
+Q1: [Multi-Layer Fully Connected Neural Networks](../MyProject22/assignment2/FullyConnectedNets.ipynb)
+
+Q2: [Batch Normalization](../MyProject22/assignment2/BatchNormalization.ipynb)
+
+Q3: [Dropout](../MyProject22/assignment2/Dropout.ipynb)
+
+Q4: [Convolutional Neural Networks](../MyProject22/assignment2/ConvolutionalNetworks.ipynb)
+
+Q5: [PyTorch on CIFAR-10](../MyProject22/assignment2/PyTorch.ipynb)
+
+Q6: [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](../MyProject22/assignment2/Network_Visualization.ipynb)
+
