@@ -189,7 +189,7 @@ See more at Lecture 4 and related reading.
 
 Q4 [Two-Layer Neural Network](../MyProject22/assignment1/two_layer_net.ipynb)
 
-The architecure is 
+The architecure is
 
 affine - relu - affine - softmax.
 
@@ -199,11 +199,9 @@ affine - relu - affine - softmax.
 
 Q5 [Higher Level Representations: Image Features](../MyProject22/assignment1/features.ipynb)
 
-
 Color Histogram (hue channel in HSV);  Histogram of Oriented Gradients.
 
-
-## Assignment 2: Image classification further, CNN 
+## Assignment 2: Further Image classification, CNN
 
 Q1: [Multi-Layer Fully Connected Neural Networks](../MyProject22/assignment2/FullyConnectedNets.ipynb)
 
@@ -217,3 +215,14 @@ Q5: [PyTorch on CIFAR-10](../MyProject22/assignment2/PyTorch.ipynb)
 
 Q6: [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](../MyProject22/assignment2/Network_Visualization.ipynb)
 
+## Assignment 3: Image Captioning, GAN, Transformer, LSTM
+
+Q1: [Image Captioning with Vanilla RNNs](../MyProject22/assignment3/RNN_Captioning.ipynb)
+
+Q2: [Image Captioning with Transformers](../MyProject22/assignment3/Transformer_Captioning.ipynb)
+
+Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adversarial_Networks.ipynb)
+
+Q4: [Self-Supervised Learning for Image Classification](../MyProject22/assignment3/Self_Supervised_Learning.ipynb)
+
+Extra Credit: [Image Captioning with LSTMs](../MyProject22/assignment3/LSTM_Captioning.ipynb)
