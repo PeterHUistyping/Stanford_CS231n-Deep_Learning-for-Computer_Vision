@@ -74,8 +74,22 @@ class FullyConnectedNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        for i in range(0, self.num_layers ):
+            if i == self.num_layers - 1:
+                hidden_dim = num_classes
+            else:
+                hidden_dim = hidden_dims[i]
 
+            if i == 0:
+                input_dim_ = input_dim
+            else:
+                input_dim_ = hidden_dims[i - 1]
+                
+            self.params[f'W{i + 1}'] = np.random.normal(scale=weight_scale, 
+                                                            size=(input_dim_, hidden_dim))
+            self.params[f'b{i + 1}'] = np.zeros(hidden_dim)
+                
+        
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
         #                             END OF YOUR CODE                             #
@@ -147,8 +161,17 @@ class FullyConnectedNet(object):
         # layer, etc.                                                              #
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        cache = {}
+        out = X
+        for l in range(0, self.num_layers):
+          
+            if l == self.num_layers - 1:
+                # out_2, cache_2 = affine_forward(out_1, self.params['W2'], self.params['b2'])
+                out_2, cache[l] = affine_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'])
+            else:
+                out, cache[l] = affine_relu_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'])
 
-        pass
+        scores = out_2
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -175,7 +198,24 @@ class FullyConnectedNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        loss, dscores = softmax_loss(scores, y)
+
+        # Filter python dictionary by key prefix
+        loss += 0.5 * self.reg * np.sum( [np.sum(W**2) for k, W in self.params.items() if k.startswith('W')])
+        # self.params['W1'] ** 2) + 0.5 * self.reg * np.sum(self.params['W2'] ** 2
+        
+        for l in reversed(range(0, self.num_layers)):
+
+            if l == self.num_layers - 1:
+                dscores, grads[f'W{l+1}'], grads[f'b{l+1}'] = affine_backward(dscores, cache[l])
+            else:
+                dscores, grads[f'W{l+1}'], grads[f'b{l+1}'] = affine_relu_backward(dscores, cache[l])
+                # dx_1, grads['W1'], grads['b1'] = affine_relu_backward(dx_2, cache_1)
+
+            grads[f'W{l+1}'] += self.reg * self.params[f'W{l+1}']
+          
+            # grads['W1'] += self.reg * self.params['W1']
+
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
