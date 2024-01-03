@@ -205,6 +205,13 @@ Color Histogram (hue channel in HSV);  Histogram of Oriented Gradients.
 
 Q1: [Multi-Layer Fully Connected Neural Networks](../MyProject22/assignment2/FullyConnectedNets.ipynb)
 
+Extend the Neural Network to n layers.
+
+Optimizer Implementation
+- Vanilla SGD
+- SGD + Momentum
+- RMSProp + Adam
+  
 Q2: [Batch Normalization](../MyProject22/assignment2/BatchNormalization.ipynb)
 
 Q3: [Dropout](../MyProject22/assignment2/Dropout.ipynb)
