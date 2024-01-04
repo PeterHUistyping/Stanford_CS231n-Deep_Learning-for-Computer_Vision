@@ -251,11 +251,13 @@ x += - learning_rate * dx / (np.sqrt(cache) + eps)
 ```python
 # t is your iteration counter going from 1 to infinity
 m = beta1*m + (1-beta1)*dx
-# mt = m / (1-beta1**t)
-v = beta2*v + (1-beta2)*(dx**2)
-# vt = v / (1-beta2**t)
-x += - learning_rate * mt / (np.sqrt(vt) + eps)
+# mt = m / (1-beta1**t) 		# bias correction
+v = beta2*v + (1-beta2)*(dx**2)         # RMSProp with vMomentum
+# vt = v / (1-beta2**t)			# bias correction
+x += - learning_rate * mt / (np.sqrt(vt) + eps)   #
 ```
+
+![Optim](../MyProject22/Photo/Optim.png)
 
 Q2: [Batch Normalization](../MyProject22/assignment2/BatchNormalization.ipynb)
 
