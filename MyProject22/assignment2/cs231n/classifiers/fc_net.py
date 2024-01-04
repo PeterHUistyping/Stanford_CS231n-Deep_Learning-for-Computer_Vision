@@ -86,7 +86,7 @@ class FullyConnectedNet(object):
                 input_dim_ = hidden_dims[i - 1]
                 
             self.params[f'W{i + 1}'] = np.random.normal(scale=weight_scale, 
-                                                            size=(input_dim_, hidden_dim))
+                                                        size=(input_dim_, hidden_dim))
             self.params[f'b{i + 1}'] = np.zeros(hidden_dim)
                 
         
@@ -162,6 +162,7 @@ class FullyConnectedNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         cache = {}
+        cache_dropout = {}
         out = X
         for l in range(0, self.num_layers):
           
@@ -171,6 +172,8 @@ class FullyConnectedNet(object):
             else:
                 out, cache[l] = affine_relu_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'])
 
+                if self.use_dropout:
+                    out, cache_dropout[l] = dropout_forward(out, self.dropout_param)
         scores = out_2
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -208,8 +211,14 @@ class FullyConnectedNet(object):
 
             if l == self.num_layers - 1:
                 dscores, grads[f'W{l+1}'], grads[f'b{l+1}'] = affine_backward(dscores, cache[l])
+            
             else:
+                if self.use_dropout:
+                    dscores = dropout_backward(dscores, cache_dropout[l])
+
                 dscores, grads[f'W{l+1}'], grads[f'b{l+1}'] = affine_relu_backward(dscores, cache[l])
+
+               
                 # dx_1, grads['W1'], grads['b1'] = affine_relu_backward(dx_2, cache_1)
 
             grads[f'W{l+1}'] += self.reg * self.params[f'W{l+1}']
