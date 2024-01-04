@@ -9,7 +9,7 @@
 
 ## Project introduction
 
-2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment-2022.md)
+2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment22.md)
 
 Visualize the [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
 

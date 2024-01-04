@@ -207,11 +207,56 @@ Q1: [Multi-Layer Fully Connected Neural Networks](../MyProject22/assignment2/Ful
 
 Extend the Neural Network to n layers.
 
-Optimizer Implementation
+**Optimizer** Implementation
+
+First-order method
+
 - Vanilla SGD
+
+```python
+# Vanilla update
+x += - learning_rate * dx
+```
+
 - SGD + Momentum
-- RMSProp + Adam
-  
+
+```python
+# Momentum update
+v = mu * v - learning_rate * dx # integrate velocity
+x += v # integrate position
+```
+
+- Nesterov Momentum
+
+```python
+x_ahead = x + mu * v
+# evaluate dx_ahead (the gradient at x_ahead instead of at x)
+v = mu * v - learning_rate * dx_ahead
+x += v
+```
+
+Second-order methods
+
+Adaptive learning rate methods
+
+- RMSProp
+
+```python
+cache = decay_rate * cache + (1 - decay_rate) * dx**2
+x += - learning_rate * dx / (np.sqrt(cache) + eps)
+```
+
+- Adam
+
+```python
+# t is your iteration counter going from 1 to infinity
+m = beta1*m + (1-beta1)*dx
+# mt = m / (1-beta1**t)
+v = beta2*v + (1-beta2)*(dx**2)
+# vt = v / (1-beta2**t)
+x += - learning_rate * mt / (np.sqrt(vt) + eps)
+```
+
 Q2: [Batch Normalization](../MyProject22/assignment2/BatchNormalization.ipynb)
 
 Q3: [Dropout](../MyProject22/assignment2/Dropout.ipynb)
