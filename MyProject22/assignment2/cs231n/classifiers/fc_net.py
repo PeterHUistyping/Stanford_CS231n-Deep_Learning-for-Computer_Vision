@@ -51,7 +51,7 @@ class FullyConnectedNet(object):
             this datatype. float32 is faster but less accurate, so you should use
             float64 for numeric gradient checking.
         - seed: If not None, then pass this random seed to the dropout layers.
-            This will make the dropout layers deteriminstic so we can gradient check the model.
+            This will make the dropout layers deterministic so we can gradient check the model.
         """
         self.normalization = normalization
         self.use_dropout = dropout_keep_ratio != 1
@@ -68,7 +68,7 @@ class FullyConnectedNet(object):
         # deviation equal to weight_scale. Biases should be initialized to zero.   #
         #                                                                          #
         # When using batch normalization, store scale and shift parameters for the #
-        # first layer in gamma1 and beta1; for the second layer use gamma2 and     #
+        # first layer in gamma and beta; for the second layer use gamma2 and     #
         # beta2, etc. Scale parameters should be initialized to ones and shift     #
         # parameters should be initialized to zeros.                               #
         ############################################################################
@@ -88,8 +88,11 @@ class FullyConnectedNet(object):
             self.params[f'W{i + 1}'] = np.random.normal(scale=weight_scale, 
                                                         size=(input_dim_, hidden_dim))
             self.params[f'b{i + 1}'] = np.zeros(hidden_dim)
+
+            if self.normalization and i != self.num_layers - 1:
+                self.params[f'gamma{i + 1}'] = np.ones(hidden_dim)
+                self.params[f'beta{i + 1}'] = np.zeros(hidden_dim)
                 
-        
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
         #                             END OF YOUR CODE                             #
@@ -165,12 +168,15 @@ class FullyConnectedNet(object):
         cache_dropout = {}
         out = X
         for l in range(0, self.num_layers):
-          
+            
             if l == self.num_layers - 1:
                 # out_2, cache_2 = affine_forward(out_1, self.params['W2'], self.params['b2'])
                 out_2, cache[l] = affine_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'])
             else:
-                out, cache[l] = affine_relu_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'])
+                if self.normalization == None:
+                    out, cache[l] = affine_relu_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'])
+                else:
+                    out, cache[l] = affine_norm_relu_forward(out, self.params[f'W{l+1}'], self.params[f'b{l+1}'], self.normalization, self.bn_params[l], self.params[f'gamma{l+1}'], self.params[f'beta{l+1}'] )
 
                 if self.use_dropout:
                     out, cache_dropout[l] = dropout_forward(out, self.dropout_param)
@@ -215,10 +221,11 @@ class FullyConnectedNet(object):
             else:
                 if self.use_dropout:
                     dscores = dropout_backward(dscores, cache_dropout[l])
+                if self.normalization == None:
+                    dscores, grads[f'W{l+1}'], grads[f'b{l+1}'] = affine_relu_backward(dscores, cache[l])
+                else:
+                    dscores, grads[f'W{l+1}'], grads[f'b{l+1}'], grads[f'gamma{l+1}'], grads[f'beta{l+1}'] = affine_norm_relu_backward(dscores, cache[l], self.normalization)
 
-                dscores, grads[f'W{l+1}'], grads[f'b{l+1}'] = affine_relu_backward(dscores, cache[l])
-
-               
                 # dx_1, grads['W1'], grads['b1'] = affine_relu_backward(dx_2, cache_1)
 
             grads[f'W{l+1}'] += self.reg * self.params[f'W{l+1}']

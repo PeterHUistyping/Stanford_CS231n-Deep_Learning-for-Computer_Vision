@@ -259,7 +259,7 @@ x += - learning_rate * mt / (np.sqrt(vt) + eps)
 
 ![Optim](../MyProject22/Photo/Optim.png)
 
-Q2: [Batch Normalization](../MyProject22/assignment2/BatchNormalization.ipynb)
+Q2: [Batch/Layer Normalization](../MyProject22/assignment2/BatchNormalization.ipynb)
 
 Q3: [Dropout](../MyProject22/assignment2/Dropout.ipynb)
 
