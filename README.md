@@ -2,11 +2,21 @@
 
 ## Course Website
 
-CS231n: Deep Learning for CV
+Deep Learning for CV [Stanford CS231n]
 
 [latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
 
-## Project introduction 
+## Project introduction
+
+### Setup
+
+- [Google Colab](https://colab.google/)
+  - call deployColab( ), see more at Colab Tutorial from CS231n.
+- Local PC (without GPU is fine in general)
+  - Dependency: Python3.9
+  - [Setup.sh](./MyProject22/Setup.sh)
+
+Dataset ``cs231n/datasets`` run the shell to download files.
 
 ### Details and Note
 

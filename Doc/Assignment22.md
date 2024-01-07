@@ -386,6 +386,8 @@ s.gather(1, y.view(-1, 1)).squeeze() # Numpy of s[np.arange(N), y] in PyTorch
 
 Q1: [Image Captioning with Vanilla RNNs](../MyProject22/assignment3/RNN_Captioning.ipynb)
 
+Dataset: 2014 release of the [COCO dataset](https://cocodataset.org/), a standard testbed for image captioning.
+
 Q2: [Image Captioning with Transformers](../MyProject22/assignment3/Transformer_Captioning.ipynb)
 
 Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adversarial_Networks.ipynb)
