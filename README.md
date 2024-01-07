@@ -10,13 +10,15 @@ Deep Learning for CV [Stanford CS231n]
 
 ### Setup
 
+*Environment*
+
 - [Google Colab](https://colab.google/)
   - call deployColab( ), see more at Colab Tutorial from CS231n.
 - Local PC (without GPU is fine in general)
   - Dependency: Python3.9
   - [Setup.sh](./MyProject22/Setup.sh)
 
-Dataset ``cs231n/datasets`` run the shell to download files.
+*Dataset* ``cs231n/datasets`` run the shell to download files.
 
 ### Details and Note
 
