@@ -1,15 +1,18 @@
-# Stanford_CS231n-Deep_Learning-for-Computer_Vision
+# Deep Learning for Computer Vision [Stanford CS231n]
 
 ## Course Website
 
-[CS231n: Deep Learning for CV latest](http://cs231n.stanford.edu/)
-[CS231n: Deep Learning for CV 2022](http://cs231n.stanford.edu/2022/)
+CS231n: Deep Learning for CV
 
-[CS131 CV: Foundations and Applications 16-17](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
+[latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
 
 ## Project introduction
 
-2022 CS231n Assignments1-3 [Details and Note](Doc/Assignment22.md)
+### Details and Note
+
+[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
+
+### Overview
 
 Visualize the [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
 
@@ -37,6 +40,21 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
 *Two-Layer Neural Network architecure*: affine - relu - affine - softmax.
 
 ![LossAcc](./MyProject22/Photo/LossAccTwoLayerNet.png)
+
+- [Batch/Layer Normalization](./MyProject22/assignment2/BatchNormalization.ipynb)
+- [Dropout](./MyProject22/assignment2/Dropout.ipynb)
+- [Convolutional Neural Networks](./MyProject22/assignment2/ConvolutionalNetworks.ipynb)
+
+**Convolution, Max Pool, Normalization**
+
+- [PyTorch on CIFAR-10](./MyProject22/assignment2/PyTorch.ipynb)
+- [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](./MyProject22/assignment2/Network_Visualization.ipynb)
+
+![Saliency Maps](./MyProject22/Photo/saliency_map.png)
+
+### See more:
+
+[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
 
 ## Machine Learning Knowledge Sharing
 
