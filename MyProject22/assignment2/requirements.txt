@@ -5,7 +5,7 @@ certifi==2019.3.9
 chardet==3.0.4
 colorama==0.4.1
 cycler==0.10.0
-Cython==0.29.16
+Cython==0.29.33
 decorator==4.4.0
 defusedxml==0.5.0
 entrypoints==0.3

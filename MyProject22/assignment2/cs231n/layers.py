@@ -575,7 +575,7 @@ def conv_forward_naive(x, w, b, conv_param):
       - 'pad': The number of pixels that will be used to zero-pad the input.
 
     During padding, 'pad' zeros should be placed symmetrically (i.e equally on both sides)
-    along the height and width axes of the input. Be careful not to modfiy the original
+    along the height and width axes of the input. Be careful not to modify the original
     input x directly.
 
     Returns a tuple of:
@@ -590,8 +590,36 @@ def conv_forward_naive(x, w, b, conv_param):
     # Hint: you can use the function np.pad for padding.                      #
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+    
+    pad = conv_param['pad']                  # padding: up = right = down = left
+    stride =  conv_param['stride']      
+    N, C, H, W = x.shape                     # input dims  
+    F, C, HH, WW = w.shape                   # filter dims
+    H_ = 1 + (H + 2 * pad - HH) // stride    # output height      
+    W_ = 1 + (W + 2 * pad - WW) // stride    # output width
 
-    pass
+    w_row = w.reshape(F, -1)                 # (F, C*HH*WW)
+
+    '''
+        padded version of x will be used for backpropagation
+        add pad before and after height and width axis  
+    '''
+    x = np.pad(x, ((0,), (0,), (pad,), (pad,)), 'constant', constant_values = 0)   
+    # (N, C, H, W) -> (N, C, H+2*pad, W+2*pad) 
+ 
+    x_col = x.T                              # (W+2*pad, H+2*pad, C, N)
+
+    x_col = np.lib.stride_tricks.sliding_window_view(x_col, (WW,HH,C,N))                 
+    # ((W+2*pad-WW, H+2*pad-HH), WW, HH, C, N)
+    
+    x_col = x_col.T[...,::stride,::stride]
+    # (N, C, HH, WW, H_, W_)
+    
+    x_col = x_col.reshape(N, C*HH*WW, -1)
+    # (N, C*HH*WW,  H_ * W_)  
+    
+    # w^T x + b
+    out = (w_row @ x_col).reshape(N, F, H_, W_) + b[np.newaxis, :, np.newaxis, np.newaxis] 
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -619,7 +647,31 @@ def conv_backward_naive(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    x_pad, w, b, conv_param = cache     
+    # x_pad: (N, C, H+2*pad, W+2*pad)    
+    stride = conv_param['stride']         
+    pad = conv_param['pad']  
+    F, C, HH, WW = w.shape                # filter w (F, C, HH, WW)
+    N, F, H_, W_ = dout.shape             # out dout (N, F, H_, W_)
+
+    dout = np.insert(dout, [*range(1, H_)] * (stride-1), 0, axis=2)         # dilation (N, F, H, W_)
+    dout = np.insert(dout, [*range(1, W_)] * (stride-1), 0, axis=3)         # dilation (N, F, H, W)
+  
+    dout_pad = np.pad(dout, ((0,), (0,), (HH-1,), (WW-1,)), 'constant')     # pad for full convolution
+
+    x_fields = np.lib.stride_tricks.sliding_window_view(x_pad, \
+                  (N, C, dout.shape[2], dout.shape[3]))   # dout/dw ~ input local regions w.r.t. dout
+    
+    dout_fields = np.lib.stride_tricks.sliding_window_view(dout_pad, \
+                  (N, F, HH, WW))                         # dout/dx ~ dout local regions w.r.t. filter 
+    
+    w_rot = np.rot90(w, 2, axes=(2, 3))                   # 180 deg rotated kernel (for convolution)
+    
+    # Einstein summation
+    db = np.einsum('ijkl->j', dout)                                       # sum over
+    dw = np.einsum('ijkl,mnopiqkl->jqop', dout, x_fields)                 # convolve (Loss Gradient, X)
+    dx = np.einsum('ijkl,mnopqikl->qjop', w_rot, dout_fields)             # convolve (F', Loss Gradient)
+    dx = dx[..., pad:-pad, pad:-pad]                                      # remove padding
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -654,7 +706,26 @@ def max_pool_forward_naive(x, pool_param):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    stride = pool_param['stride']  
+    pool_height = pool_param['pool_height']  
+    pool_width = pool_param['pool_width']   
+    N, C, H, W = x.shape                         
+    H_ = 1 + (H - pool_height) // stride       # output height
+    W_ = 1 + (W - pool_width) // stride        # output width
+
+    x_fields = x.T                              # (W, H, C, N)
+
+    x_fields = np.lib.stride_tricks.sliding_window_view(x_fields, (pool_width,pool_height,C,N))                 
+    # ((W - pool_width, H - pool_height), pool_width, pool_height, C, N)
+    
+    x_fields = x_fields.T[...,::stride,::stride]
+    # (N, C, pool_height, pool_width, H_, W_)
+    
+    x_fields = x_fields.reshape(N, C, pool_height * pool_width, -1)
+    # (N, C, pool_height * pool_width, H_ * W_)  
+
+    out = x_fields.max(axis=2).reshape(N, C, H_, W_)                    # pooled output
+
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -680,7 +751,22 @@ def max_pool_backward_naive(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    x, pool_param = cache      
+    # x: (N, C, H, W)
+    N, C, H_, W_ = dout.shape   # get dout shape values
+    dx = np.zeros_like(x)       # ini
+
+    stride = pool_param['stride'] # stride: up = down
+    pool_height = pool_param['pool_height']  
+    pool_width = pool_param['pool_width']   
+
+    for i in range(H_):
+        for j in range(W_):
+            [ns, cs], h, w = np.indices((N, C)), i*stride, j*stride    # compact indexing
+            f = x[:, :, h:(h+pool_height), w:(w+pool_width)].reshape(N, C, -1)  # input local fields
+            k, l = np.unravel_index(np.argmax(f, 2), (pool_height, pool_width)) # max vals offset
+            dx[ns, cs, h+k, w+l] += dout[ns, cs, i, j]         # select areas to update
+
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################

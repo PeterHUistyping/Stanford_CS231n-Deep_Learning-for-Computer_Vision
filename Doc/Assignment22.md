@@ -265,6 +265,54 @@ Q3: [Dropout](../MyProject22/assignment2/Dropout.ipynb)
 
 Q4: [Convolutional Neural Networks](../MyProject22/assignment2/ConvolutionalNetworks.ipynb)
 
+**Convolution**
+
+$$
+input (N,C_{in},H,W), weight(N, C_{in}, HH, WW), bias(C_{out}); out(N, C_{out}, H', W')
+$$
+
+$$
+H' = 1 + (H + 2 * pad - HH) / stride
+$$
+
+$$
+W' = 1 + (W + 2 * pad - WW) / stride
+$$
+
+```python
+# x (N, C, H, W)
+
+x = np.pad(x, ((0,), (0,), (pad,), (pad,)), 'constant', constant_values = 0)   
+# (N, C, H+2*pad, W+2*pad) 
+ 
+x_col = x.T  
+# (W+2*pad, H+2*pad, C, N)
+
+x_col = np.lib.stride_tricks.sliding_window_view(x_col, (WW,HH,C,N))   
+# ((W+2*pad-WW, H+2*pad-HH), WW, HH, C, N)
+  
+x_col = x_col.T[...,::stride,::stride]
+# (N, C, HH, WW, H_, W_)
+  
+x_col = x_col.reshape(N, C*HH*WW, -1)
+# (N, C*HH*WW,  H_ * W_)  
+```
+
+$$
+out(N_i,C_{out_j})= bias(C_{out_j})+ \sum_{k=0}^{C_{in}−1} weight(C_{out_j},k)⋆input(N_i,k)
+$$
+
+```python
+out = (w_row @ x_col).reshape(N, F, H_, W_) + b[np.newaxis, :, np.newaxis, np.newaxis] 
+```
+
+Example: Sobel operator for edge detection, or filter for gray-scale conversion
+
+**Max Pool**
+
+For each N, C, find the max among pool_height * pool_width.
+
+
 Q5: [PyTorch on CIFAR-10](../MyProject22/assignment2/PyTorch.ipynb)
 
 Q6: [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](../MyProject22/assignment2/Network_Visualization.ipynb)
