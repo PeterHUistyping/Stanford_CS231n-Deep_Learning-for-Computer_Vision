@@ -19,3 +19,6 @@ MyProject22/assignment3/cs231n/datasets/coco_captioning/*.h5
 MyProject22/assignment3/cs231n/datasets/coco_captioning/*.json
 MyProject22/assignment3/cs231n/datasets/coco_captioning/*.txt
 MyProject22/assignment3/cs231n/datasets/*.npz
+MyProject22/assignment3/data/
+MyProject22/assignment3/cs231n/datasets/MNIST_data/
+MyProject22/assignment3/pretrained_model/pretrained_simclr_model.pth
