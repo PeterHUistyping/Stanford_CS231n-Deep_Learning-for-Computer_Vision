@@ -366,11 +366,23 @@ nn.init.kaiming_normal_(self.fc.weight)
 
 Q6: [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](../MyProject22/assignment2/Network_Visualization.ipynb)
 
-**Saliency Maps.** We can use saliency maps to tell which part of the image influenced the classification decision made by the network.
+**Saliency Maps.** tell which part of the image influenced the classification decision made by the network.
 
-**Fooling Images.** We can perturb an input image so that it appears the same to humans but will be misclassified by the pretrained network.
+![Saliency Maps](../MyProject22/Photo/saliency_map.png)
 
-**Class Visualization.** We can synthesize an image to maximize the classification score of a particular class; this can give us some sense of what the network is looking for when it classifies images of that class.
+**Fooling Images.** perturb an input image so that it appears the same to humans but will be misclassified by the pre-trained network.
+
+
+![fooling image](../MyProject22/Photo/fooling_image.png)
+
+**Class Visualization.** synthesize an image to maximize the classification score of a particular class; this can give us some sense of what the network is looking for when it classifies images of that class.
+
+![Class Visualization](../MyProject22/Photo/class_visualization.png)
+
+
+```python
+s.gather(1, y.view(-1, 1)).squeeze() # Numpy of s[np.arange(N), y] in PyTorch
+```
 
 ## Assignment 3: Image Captioning, GAN, Transformer, LSTM
 

@@ -34,7 +34,12 @@ def compute_saliency_maps(X, y, model):
     ##############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    # No softmax because scores are un-normalized
+    loss = model(X)[range(len(y)), y].sum()
+    loss.backward()
+
+    # As in paper, saliency is just the score grad with respect to input (abs+max)
+    saliency, _ = X.grad.abs().max(axis=1)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ##############################################################################
@@ -53,7 +58,7 @@ def make_fooling_image(X, target_y, model):
     - model: A pretrained CNN
 
     Returns:
-    - X_fooling: An image that is close to X, but that is classifed as target_y
+    - X_fooling: An image that is close to X, but that is classified as target_y
     by the model.
     """
     # Initialize our fooling image to the input image, and make it require gradient
@@ -76,7 +81,21 @@ def make_fooling_image(X, target_y, model):
     ##############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    while True:
+        # Compute model predictions
+        pred_y = model(X_fooling)
+
+        if pred_y.max(dim=1)[1] == target_y:
+            # If predicted correctly
+            break
+        
+        # Loss is just the target score
+        loss = pred_y[0, target_y]
+        loss.backward()
+
+        # Gradient ascent with the normalized gradient step, then zero out grad
+        X_fooling.data += learning_rate * X_fooling.grad / X_fooling.grad.norm()
+        X_fooling.grad.zero_()
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ##############################################################################
@@ -94,7 +113,16 @@ def class_visualization_update_step(img, model, target_y, l2_reg, learning_rate)
     ########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    # Get model preds
+    pred_y = model(img)
+
+    # Loss is just the L2 regularized target score
+    loss = pred_y[0, target_y] - l2_reg * img.square().sum()
+    loss.backward()
+    
+    # Perform normalized gradient ascent and zero out grad
+    img.data += learning_rate * img.grad / img.grad.norm()
+    img.grad.zero_()
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ########################################################################
