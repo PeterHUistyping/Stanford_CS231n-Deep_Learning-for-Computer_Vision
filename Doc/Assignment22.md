@@ -372,13 +372,11 @@ Q6: [Network Visualization: Saliency Maps, Class Visualization, and Fooling Imag
 
 **Fooling Images.** perturb an input image so that it appears the same to humans but will be misclassified by the pre-trained network.
 
-
 ![fooling image](../MyProject22/Photo/fooling_image.png)
 
 **Class Visualization.** synthesize an image to maximize the classification score of a particular class; this can give us some sense of what the network is looking for when it classifies images of that class.
 
 ![Class Visualization](../MyProject22/Photo/class_visualization.png)
-
 
 ```python
 s.gather(1, y.view(-1, 1)).squeeze() # Numpy of s[np.arange(N), y] in PyTorch

@@ -6,7 +6,7 @@ CS231n: Deep Learning for CV
 
 [latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
 
-## Project introduction
+## Project introduction 
 
 ### Details and Note
 
