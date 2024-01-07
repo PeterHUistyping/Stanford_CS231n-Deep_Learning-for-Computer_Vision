@@ -65,3 +65,5 @@ webencodings==0.5.1
 widgetsnbextension==3.4.2
 future
 imageio
+torch
+torchvision

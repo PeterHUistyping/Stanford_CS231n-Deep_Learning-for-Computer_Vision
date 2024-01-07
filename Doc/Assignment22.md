@@ -189,7 +189,7 @@ See more at Lecture 4 and related reading.
 
 Q4 [Two-Layer Neural Network](../MyProject22/assignment1/two_layer_net.ipynb)
 
-The architecure is
+The architecture is
 
 affine - relu - affine - softmax.
 
@@ -319,7 +319,58 @@ For each N, C, find the max among pool_height * pool_width.
 
 Q5: [PyTorch on CIFAR-10](../MyProject22/assignment2/PyTorch.ipynb)
 
+**Preparation**
+
+```python
+transform = T.Compose([
+                T.ToTensor(),
+                T.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
+            ])
+
+cifar10_train = dset.CIFAR10('./cs231n/datasets', train=True, download=True,
+                             transform=transform)
+loader_train = DataLoader(cifar10_train, batch_size=64, 
+                          sampler=sampler.SubsetRandomSampler(range(NUM_TRAIN)))
+x.view(N, -1) # reshape
+```
+
+| API               | Flexibility | Convenience |
+| ----------------- | ----------- | ----------- |
+| Barebone          | High        | Low         |
+| `nn.Module`     | High        | Medium      |
+| `nn.Sequential` | Low         | High        |
+
+- [nn.init](https://pytorch.org/docs/master/nn.init.html) package contains convenient initialization methods.
+
+```python
+nn.init.kaiming_normal_(self.fc.weight)
+```
+
+- PyTorch: Two-Layer Network
+- PyTorch: Three-Layer ConvNet
+- PyTorch: CIFAR-10 **open-ended challenge**
+- Alternative optimizers (Adam, Adagrad, RMSprop, etc.)
+- Alternative activation functions such as leaky ReLU, parametric ReLU, ELU, or MaxOut.
+- Model ensembles
+- Data augmentation
+- New Architectures
+  - [This blog has an in-depth overview](https://chatbotslife.com/resnets-highwaynets-and-densenets-oh-my-9bb15918ee32)
+  - [ResNets](https://arxiv.org/abs/1512.03385) where the input from the previous layer is added to the output.
+    $$
+    y = f(x) + x
+    $$
+  - [DenseNets](https://arxiv.org/abs/1608.06993) where inputs into previous layers are concatenated together.
+    $$
+    y = f(x,x-1,x-2…,x-n)
+    $$
+
 Q6: [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](../MyProject22/assignment2/Network_Visualization.ipynb)
+
+**Saliency Maps.** We can use saliency maps to tell which part of the image influenced the classification decision made by the network.
+
+**Fooling Images.** We can perturb an input image so that it appears the same to humans but will be misclassified by the pretrained network.
+
+**Class Visualization.** We can synthesize an image to maximize the classification score of a particular class; this can give us some sense of what the network is looking for when it classifies images of that class.
 
 ## Assignment 3: Image Captioning, GAN, Transformer, LSTM
 
