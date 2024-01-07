@@ -807,7 +807,11 @@ def spatial_batchnorm_forward(x, gamma, beta, bn_param):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    N, C, H, W = x.shape                                    
+    x = np.moveaxis(x, 1, -1).reshape(-1, C)                 # swap axes      (N*H*W, C)
+    out, cache = batchnorm_forward(x, gamma, beta, bn_param) # perform vanilla batchnorm
+    out = np.moveaxis(out.reshape(N, H, W, C), -1, 1)        # swap back axes for the output
+
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -840,7 +844,11 @@ def spatial_batchnorm_backward(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    N, C, H, W = dout.shape                            
+    dout = np.moveaxis(dout, 1, -1).reshape(-1, C)      # swap axes 
+    dx, dgamma, dbeta = batchnorm_backward(dout, cache) # perform vanilla batchnorm backprop
+    dx = np.moveaxis(dx.reshape(N, H, W, C), -1, 1)     # swap back axes for the gradient of dx
+
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -862,7 +870,7 @@ def spatial_groupnorm_forward(x, gamma, beta, G, gn_param):
     - x: Input data of shape (N, C, H, W)
     - gamma: Scale parameter, of shape (1, C, 1, 1)
     - beta: Shift parameter, of shape (1, C, 1, 1)
-    - G: Integer mumber of groups to split into, should be a divisor of C
+    - G: Integer number of groups to split into, should be a divisor of C
     - gn_param: Dictionary with the following keys:
       - eps: Constant for numeric stability
 
@@ -881,7 +889,17 @@ def spatial_groupnorm_forward(x, gamma, beta, G, gn_param):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    N, C, H, W = x.shape                                           
+    ln_param = {"shape":(W, H, C, N), "axis":(0, 1, 3), **gn_param}  
+    
+    x = x.reshape(N*G, -1)                                     
+    gamma = np.tile(gamma, (N, 1, H, W)).reshape(N*G, -1)      
+    beta = np.tile(beta, (N, 1, H, W)).reshape(N*G, -1)      
+
+    out, cache = layernorm_forward(x, gamma, beta, ln_param)  # perform vanilla layernorm
+    out = out.reshape(N, C, H, W)                              
+    cache = (G, cache)                                       
+
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -910,7 +928,14 @@ def spatial_groupnorm_backward(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    G, cache = cache                                
+    N, C, H, W = dout.shape                             # upstream dims
+    dout = dout.reshape(N*G, -1)                       
+
+    dx, dgamma, dbeta = layernorm_backward(dout, cache) # perform vanilla layernorm backprop
+    dx = dx.reshape(N, C, H, W)                         
+    dbeta = dbeta[None, :, None, None]                    
+    dgamma = dgamma[None, :, None, None]             
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################

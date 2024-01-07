@@ -312,6 +312,10 @@ Example: Sobel operator for edge detection, or filter for gray-scale conversion
 
 For each N, C, find the max among pool_height * pool_width.
 
+**Normalization**
+
+- Spatial Batch  ~ Batch
+- Spatial Group  ~ Layer (with spatial consideration)
 
 Q5: [PyTorch on CIFAR-10](../MyProject22/assignment2/PyTorch.ipynb)
 
