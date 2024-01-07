@@ -41,6 +41,8 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
 
 ![LossAcc](./MyProject22/Photo/LossAccTwoLayerNet.png)
 
+![Optim](./MyProject22/Photo/Optim.png)
+
 - [Batch/Layer Normalization](./MyProject22/assignment2/BatchNormalization.ipynb)
 - [Dropout](./MyProject22/assignment2/Dropout.ipynb)
 - [Convolutional Neural Networks](./MyProject22/assignment2/ConvolutionalNetworks.ipynb)
