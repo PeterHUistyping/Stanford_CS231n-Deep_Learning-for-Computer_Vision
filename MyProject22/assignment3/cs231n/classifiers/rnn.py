@@ -148,7 +148,28 @@ class CaptioningRNN:
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        if self.cell_type == "rnn":
+            # If cell type is regular RNN
+            recurrent_forward = rnn_forward
+            recurrent_backward = rnn_backward
+        elif self.cell_type == "lstm":
+            # If cell type is long short-term
+            recurrent_forward = lstm_forward
+            recurrent_backward = lstm_backward
+
+        h0, cache_h0 = affine_forward(features, W_proj, b_proj)       # step (1)
+        x, cache_x = word_embedding_forward(captions_in, W_embed)     # step (2)
+
+        h, cache_h = recurrent_forward(x, h0, Wx, Wh, b)              # step (3)
+        
+        out, cache_out = temporal_affine_forward(h, W_vocab, b_vocab) # step (4)
+        loss, dout = temporal_softmax_loss(out, captions_out, mask)   # step (5)
+
+        # Perform backward pass: backprop through steps (4) to (1)
+        dout, grads["W_vocab"], grads["b_vocab"] = temporal_affine_backward(dout, cache_out)
+        dout, dh0, grads["Wx"], grads["Wh"], grads["b"] = recurrent_backward(dout, cache_h)
+        grads["W_embed"] = word_embedding_backward(dout, cache_x)
+        _, grads["W_proj"], grads["b_proj"] = affine_backward(dh0, cache_h0)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -216,7 +237,22 @@ class CaptioningRNN:
         ###########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # Initialize the hidden and cell states, input
+        h, _ = affine_forward(features, W_proj, b_proj)
+        x = np.repeat(self._start, N)
+        c = np.zeros_like(h)
+
+        for t in range(max_length):
+            x, _ = word_embedding_forward(x, W_embed)           # step (1)
+
+            if self.cell_type == "rnn":                         # step (2)
+                h, _ = rnn_step_forward(x, h, Wx, Wh, b)
+            elif self.cell_type == "lstm":
+                h, c, _ = lstm_step_forward(x, h, c, Wx, Wh, b)
+
+            out, _ = affine_forward(h, W_vocab, b_vocab)        # step (3)
+            x = np.argmax(out, axis=1)                          # step (4)      
+            captions[:, t] = x
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################

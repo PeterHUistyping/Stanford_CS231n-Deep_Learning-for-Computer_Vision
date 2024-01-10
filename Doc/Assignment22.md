@@ -386,11 +386,30 @@ s.gather(1, y.view(-1, 1)).squeeze() # Numpy of s[np.arange(N), y] in PyTorch
 
 Q1: [Image Captioning with Vanilla RNNs](../MyProject22/assignment3/RNN_Captioning.ipynb)
 
-Dataset: 2014 release of the [COCO dataset](https://cocodataset.org/), a standard testbed for image captioning.
+*Dataset: 2014 [COCO dataset](https://cocodataset.org/), a standard testbed for image captioning.*
+
+Define hidden state as h.
+
+**Image Captioning**
+
+> Image feature                             -----*affine_forward*-----> initial $h_0$ state
+> Captions $x\in (N×T×Z^+)$ ---w*ord_embedding*---> $x \in (N×T×\R^D)$
+
+**RNN**, for each step $t \in T$, do $h_t = f_W(h_{t-1}+x_t)$,
+
+$$
+h_t = tanh( x W_x + h_{t-1} W_h + b )
+$$
+
+$h_n$ --- *temporal_affine_forward* ---> Score in the $Vocabulary$ ---> Predicted Word $y$
+
+$loss$ = *temporal_softmax_loss*$(y, GT)$
 
 Q2: [Image Captioning with Transformers](../MyProject22/assignment3/Transformer_Captioning.ipynb)
 
 Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adversarial_Networks.ipynb)
+
+*Dataset: MNIST*
 
 Q4: [Self-Supervised Learning for Image Classification](../MyProject22/assignment3/Self_Supervised_Learning.ipynb)
 
