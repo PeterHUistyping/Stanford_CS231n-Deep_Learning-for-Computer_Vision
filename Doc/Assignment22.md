@@ -393,7 +393,8 @@ Define hidden state as h.
 **Image Captioning**
 
 > Image feature                             -----*affine_forward*-----> initial $h_0$ state
-> Captions $x\in (N×T×Z^+)$ ---w*ord_embedding*---> $x \in (N×T×\R^D)$
+>
+> Captions $x\in (N×T×Z^+)$ ---w*ord_embedding*---> $x \in (N×T×R^D)$
 
 **RNN**, for each step $t \in T$, do $h_t = f_W(h_{t-1}+x_t)$,
 
