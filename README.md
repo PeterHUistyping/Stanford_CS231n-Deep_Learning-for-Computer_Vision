@@ -24,6 +24,12 @@ Deep Learning for CV [Stanford CS231n]
 
 [Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
 
+- Image Classification + Localization $(x,y,w,h)$
+- Object Detection
+  - Variable numbers of output, sliding window
+- Semantic / Instance Segmentation
+- Image Captioning
+
 ### Overview
 
 Visualize the [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
