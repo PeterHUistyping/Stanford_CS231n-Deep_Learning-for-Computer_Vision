@@ -29,6 +29,9 @@ Deep Learning for CV [Stanford CS231n]
   - Variable numbers of output, sliding window
 - Semantic / Instance Segmentation
 - Image Captioning
+- Video understanding
+- Generative model (GAN, VAE)
+- Self-Supervised Learning
 
 ### Overview
 
