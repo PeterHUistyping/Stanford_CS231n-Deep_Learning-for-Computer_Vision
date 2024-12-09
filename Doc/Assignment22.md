@@ -428,4 +428,37 @@ Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adve
 
 Q4: [Self-Supervised Learning for Image Classification](../MyProject22/assignment3/Self_Supervised_Learning.ipynb)
 
-Extra Credit: [Image Captioning with LSTMs](../MyProject22/assignment3/LSTM_Captioning.ipynb)
+Q5: Extra Credit [Image Captioning with LSTMs](../MyProject22/assignment3/LSTM_Captioning.ipynb)
+
+
+Due to vanishing and exploding gradients caused by repeated matrix multiplication, RNNs can be tough to train on long sequences. LSTMs solve it by replacing the simple update rule with a gating mechanism.
+
+Similarly, **LSTMs** receive at each timestep $t$ an input $x_t\in\mathbb{R}^D$ and the previous hidden state $h_{t-1}\in\mathbb{R}^H$. It also maintains an $H$-dimensional *cell state*, so we also receive the previous cell state $c_{t-1}\in\mathbb{R}^H$. At each timestep we first compute an *activation vector*,
+
+$$
+a \in \mathbb{R}^{4H} = W_x \cdot x_t + W_h \cdot h_{t-1}+b
+$$
+
+, where learnable parameters of the LSTM are an *input-to-hidden* matrix $W_x\in\mathbb{R}^{4H\times D}$, a *hidden-to-hidden* matrix $W_h\in\mathbb{R}^{4H\times H}$ and a *bias vector* $b\in\mathbb{R}^{4H}$. 
+
+We then divide this into four vectors $a_i,a_f,a_o,a_g\in\mathbb{R}^H$ where $a_i$ consists of the first $H$ elements of $a$, $a_f$ is the next $H$ elements of $a$, etc. 
+
+The *input gate* $g\in\mathbb{R}^H$, *forget gate* $f\in\mathbb{R}^H$, *output gate* $o\in\mathbb{R}^H$ and *block input* $g\in\mathbb{R}^H$ as
+
+$$
+i = \sigma(a_i) \hspace{2pc}
+f = \sigma(a_f) \hspace{2pc}
+o = \sigma(a_o) \hspace{2pc}
+g = \tanh(a_g)
+$$
+
+where $\sigma$ is the sigmoid function and $\tanh$ is the hyperbolic tangent, both applied elementwise.
+
+Finally we compute the next cell state $c_t$ and next hidden state $h_t$ as
+
+$$
+c_{t} = f\odot c_{t-1} + i\odot g \hspace{4pc}
+h_t = o\odot\tanh(c_t)
+$$
+
+where $\odot$ is the elementwise product of vectors.
