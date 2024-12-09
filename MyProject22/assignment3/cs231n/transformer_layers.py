@@ -38,7 +38,13 @@ class PositionalEncoding(nn.Module):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # i represents the position of the token in the sequence
+        i = torch.arange(max_len)[:, None]
+        pows = torch.pow(10000, -torch.arange(0, embed_dim, 2) / embed_dim)
+
+        # positional encoding
+        pe[0, :, 0::2] = torch.sin(i * pows)
+        pe[0, :, 1::2] = torch.cos(i * pows)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -70,7 +76,9 @@ class PositionalEncoding(nn.Module):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # clip the length to sequence length S
+        output = x + self.pe[:, :S]
+        output = self.dropout(output)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -165,8 +173,42 @@ class MultiHeadAttention(nn.Module):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # calculate Q, K, V
+        Q = self.query(query) 
+        K = self.key(key)
+        V = self.value(value)
 
+        # split Query, Key, Value
+        Q = Q.reshape(N, S, self.n_head, self.head_dim) # (N, S, H, E/H)
+        K = K.reshape(N, T, self.n_head, self.head_dim) # (N, T, H, E/H)
+        V = V.reshape(N, T, self.n_head, self.head_dim) # (N, T, H, E/H)
+        
+        Q = Q.moveaxis(1, 2) # (N, H, S, E/H)
+        K = K.moveaxis(1, 2) # (N, H, T, E/H)
+        V = V.moveaxis(1, 2) # (N, H, T, E/H)
+
+        # calculate attention scores
+        scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.head_dim)
+        #  (N, H, S, E/H) x (N, H, E/H, T) = (N, H, S, T)
+        
+        # print(scores.shape)
+        
+        if attn_mask is not None:
+            # print(attn_mask.shape)
+
+            # zero out masked positions
+            scores = scores.masked_fill(attn_mask == 0, float('-inf'))
+        
+        # apply softmax
+        Y = F.softmax(scores, dim=-1)
+        Y = self.attn_drop(Y)
+        Y = torch.matmul(Y, V)
+        # (N, H, S, T) x (N, H, T, E/H) = (N, H, S, E/H)
+        Y = Y.moveaxis(1, 2)
+        Y = Y.reshape(N, S, E)
+        Y = self.proj(Y)
+        output = Y
+        
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
         #                             END OF YOUR CODE                             #

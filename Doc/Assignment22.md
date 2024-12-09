@@ -394,10 +394,12 @@ Q1: [Image Captioning with Vanilla RNNs](../MyProject22/assignment3/RNN_Captioni
 >
 > Captions $x\in (N×T×Z^+)$ --- *word_embedding* $\rightarrow$ $x \in (N×T×R^D)$
 
+For $N$ batches, the input sequences are encoded from $\mathbb{R}^{T \times Z^+}$ to $\mathbb{R}^{T \times D}$, where each sequence is composed of $T$ vectors, each of dimension $D$.
+
 **RNN**, for each step $t \in T$, do $h_t = f_W(h_{t-1}+x_t)$, specifically,
 
 $$
-h_t = tanh( x W_x + h_{t-1} W_h + b )
+h_t = tanh( x \cdot W_x + h_{t-1} \cdot W_h + b )
 $$
 
 > $h_n$ --- *temporal_affine_forward* $\rightarrow$ Score in the $Vocabulary$ $\rightarrow$ Predicted Word $y_{pred}$
@@ -407,6 +409,16 @@ loss  = \text{temporal-softmax-loss}  (y_{pred}, y_{GT})
 $$
 
 Q2: [Image Captioning with Transformers](../MyProject22/assignment3/Transformer_Captioning.ipynb)
+
+**Multi-head attention** $Y \in \mathbb{R}^{N\times S \times E}= [Y_1;\dots;Y_h] A$, for $N$ batches, $S$ is the source sequence length, $T$ is the target sequence length, and $E$ is the embedding dimension. With input data $X_Q\in \mathbb{R}^{N\times S \times E}$, $X_K\in \mathbb{R}^{N\times T \times E}$, $X_V\in \mathbb{R}^{N\times T \times E}$, and weight matrices $A, Q, K, V$,
+
+$$
+\begin{equation} 
+Y_i = \text{softmax}\bigg(\frac{(XQ_i)(XK_i)^\top}{\sqrt{d/h}}\bigg)(XV_i)
+\end{equation}
+$$
+
+**Positional encoding** $X+f_p(cos,sin)$
 
 Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adversarial_Networks.ipynb)
 
