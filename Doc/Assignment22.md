@@ -410,7 +410,9 @@ $$
 
 Q2: [Image Captioning with Transformers](../MyProject22/assignment3/Transformer_Captioning.ipynb)
 
-**Multi-head attention** $Y \in \mathbb{R}^{N\times S \times E}= [Y_1;\dots;Y_h] A$, for $N$ batches, $S$ is the source sequence length, $T$ is the target sequence length, and $E$ is the embedding dimension. With input data $X_Q\in \mathbb{R}^{N\times S \times E}$, $X_K\in \mathbb{R}^{N\times T \times E}$, $X_V\in \mathbb{R}^{N\times T \times E}$, and weight matrices $A, Q, K, V$,
+**Multi-head attention** $Y \in \mathbb{R}^{N\times S \times E}= [Y_1;\dots;Y_h] A$.
+
+For $N$ batches, $S$ is the source sequence length, $T$ is the target sequence length, and $E$ is the embedding dimension. With input data $X_Q\in \mathbb{R}^{N\times S \times E}$, $X_K\in \mathbb{R}^{N\times T \times E}$, $X_V\in \mathbb{R}^{N\times T \times E}$, and weight matrices $A, Q, K, V$,
 
 $$
 \begin{equation} 
