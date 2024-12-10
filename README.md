@@ -2,15 +2,15 @@
 
 ## Course Website
 
-Deep Learning for CV [Stanford CS231n]
+Deep Learning for CV [Stanford CS231n] [latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
 
-[latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
+[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
 
 ## Project introduction
 
-### Setup
+Project documentation [Assignment {i}.pdf](./MyProject22/Original) and raw codebase [assignment{i}_colab.zip](./MyProject22/Original).
 
-*Environment*
+*Environment and Setup*
 
 - [Google Colab](https://colab.google/)
   - call deployColab( ), see more at Colab Tutorial from CS231n.
@@ -18,11 +18,11 @@ Deep Learning for CV [Stanford CS231n]
   - Dependency: Python3.9
   - [Setup.sh](./MyProject22/Setup.sh)
 
-*Dataset* ``cs231n/datasets`` run the shell to download files.
+*Dataset*
 
-### Details and Note
+``cs231n/datasets`` run the shell to download files.
 
-[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
+*Details*
 
 - Image Classification + Localization $(x,y,w,h)$
 - Object Detection
@@ -32,8 +32,6 @@ Deep Learning for CV [Stanford CS231n]
 - Video understanding
 - Generative model (GAN, VAE)
 - Self-Supervised Learning
-
-### Overview
 
 Visualize the [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
 
@@ -66,18 +64,13 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
 
 - [Batch/Layer Normalization](./MyProject22/assignment2/BatchNormalization.ipynb)
 - [Dropout](./MyProject22/assignment2/Dropout.ipynb)
-- [Convolutional Neural Networks](./MyProject22/assignment2/ConvolutionalNetworks.ipynb)
-
-**Convolution, Max Pool, Normalization**
-
+- [Convolutional Neural Networks](./MyProject22/assignment2/ConvolutionalNetworks.ipynb) Convolution, Max Pool, Normalization
 - [PyTorch on CIFAR-10](./MyProject22/assignment2/PyTorch.ipynb)
 - [Network Visualization: Saliency Maps, Class Visualization, and Fooling Images](./MyProject22/assignment2/Network_Visualization.ipynb)
 
 ![Saliency Maps](./MyProject22/Photo/saliency_map.png)
 
-### See more:
-
-[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
+**See more:** [Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
 
 ## Machine Learning Knowledge Sharing
 
