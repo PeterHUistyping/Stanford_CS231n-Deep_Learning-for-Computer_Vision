@@ -426,6 +426,13 @@ Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adve
 
 *Dataset*: [MNIST dataset](https://pytorch.org/vision/main/generated/torchvision.datasets.MNIST.html) (Modified National Institute of Standards and Technology), a large database of handwritten digits that is commonly used for training various image processing systems
 
+
+It's a back and forth process of the generator ($G$) trying to fool the discriminator ($D$) and the discriminator trying to correctly classify real vs. fake as a minimax game:
+$$
+\underset{G}{\text{minimize}}\; \underset{D}{\text{maximize}}\; \mathbb{E}_{x \sim p_\text{data}}\left[\log D(x)\right] + \mathbb{E}_{z \sim p(z)}\left[\log \left(1-D(G(z))\right)\right]$$
+where $z \sim p(z)$ are the random noise samples, $G(z)$ are the generated images using the neural network generator $G$, and $D$ is the output of the discriminator, specifying the probability of an input being real.
+
+
 Q4: [Self-Supervised Learning for Image Classification](../MyProject22/assignment3/Self_Supervised_Learning.ipynb)
 
 Q5: Extra Credit [Image Captioning with LSTMs](../MyProject22/assignment3/LSTM_Captioning.ipynb)
@@ -461,4 +468,4 @@ c_{t} = f\odot c_{t-1} + i\odot g \hspace{4pc}
 h_t = o\odot\tanh(c_t)
 $$
 
-where $\odot$ is the elementwise product of vectors.
+where $\odot$ is the element-wise product of vectors.
