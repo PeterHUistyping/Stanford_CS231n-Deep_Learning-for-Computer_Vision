@@ -429,14 +429,20 @@ Q3: [Generative Adversarial Networks](../MyProject22/assignment3/Generative_Adve
 
 It's a back and forth process of the generator ($G$) trying to fool the discriminator ($D$) and the discriminator trying to correctly classify real vs. fake as a minimax game:
 $$
-\underset{G}{\text{minimize}}\; \underset{D}{\text{maximize}}\; \mathbb{E}_{x \sim p_\text{data}}\left[\log D(x)\right] + \mathbb{E}_{z \sim p(z)}\left[\log \left(1-D(G(z))\right)\right]$$
-where $z \sim p(z)$ are the random noise samples, $G(z)$ are the generated images using the neural network generator $G$, and $D$ is the output of the discriminator, specifying the probability of an input being real.
+\underset{G}{\text{minimize}}\; \underset{D}{\text{maximize}}\; \mathbb{E}_{x \sim p_\text{data}}\left[\log D(x)\right] + \mathbb{E}_{z \sim p(z)}\left[\log \left(1-D(G(z))\right)\right]
+$$
+, where $z \sim p(z)$ are the random noise samples, $G(z)$ are the generated images using the neural network generator $G$, and $D$ is the output of the discriminator, specifying the probability of an input being real.
 
+Extension: Least squares GAN (LSGAN), Deeply Convolution GAN.
 
 Q4: [Self-Supervised Learning for Image Classification](../MyProject22/assignment3/Self_Supervised_Learning.ipynb)
 
-Q5: Extra Credit [Image Captioning with LSTMs](../MyProject22/assignment3/LSTM_Captioning.ipynb)
 
+Self-supervised learning (SSL) allows models to automatically learn a "good" representation space using the data in a given dataset without the need for their labels.
+
+Contrastive learning aims to learn similar representations for similar images and different representations for different images.
+
+Q5: Extra Credit [Image Captioning with LSTMs](../MyProject22/assignment3/LSTM_Captioning.ipynb)
 
 Due to vanishing and exploding gradients caused by repeated matrix multiplication, RNNs can be tough to train on long sequences. LSTMs solve it by replacing the simple update rule with a gating mechanism.
 
