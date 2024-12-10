@@ -1,14 +1,8 @@
 # Deep Learning for Computer Vision [Stanford CS231n]
 
-## Course Website
+***Course Website*** Deep Learning for CV [Stanford CS231n] [latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
 
-Deep Learning for CV [Stanford CS231n] [latest](http://cs231n.stanford.edu/), [2022](http://cs231n.stanford.edu/2022/), [16-17 (CS131 CV: Foundations and Applications)](http://vision.stanford.edu/teaching/cs131_fall1617/schedule.html)
-
-[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
-
-## Project introduction
-
-Project documentation [Assignment {i}.pdf](./MyProject22/Original) and raw codebase [assignment{i}_colab.zip](./MyProject22/Original).
+***Project*** documentation [Assignment {i}.pdf](./MyProject22/Original) and raw codebase [assignment{i}_colab.zip](./MyProject22/Original).
 
 *Environment and Setup*
 
@@ -18,11 +12,9 @@ Project documentation [Assignment {i}.pdf](./MyProject22/Original) and raw codeb
   - Dependency: Python3.9
   - [Setup.sh](./MyProject22/Setup.sh)
 
-*Dataset*
+*Dataset* run the shell to download files to ``cs231n/datasets``.
 
-``cs231n/datasets`` run the shell to download files.
-
-*Details*
+[Details and notes for assignments (2022)](Doc/Assignment22.md)
 
 - Image Classification + Localization $(x,y,w,h)$
 - Object Detection
@@ -33,16 +25,15 @@ Project documentation [Assignment {i}.pdf](./MyProject22/Original) and raw codeb
 - Generative model (GAN, VAE)
 - Self-Supervised Learning
 
-Visualize the [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
-
-```
-idxs = np.random.choice(idxs, samples_per_class, replace=False) 
-```
+[CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) visualization
 
 ![CIFAR-10](./MyProject22/Photo/CIFAR-10.png)
 
-- Image Classification (Supervised Learning, Discrete label)
+```python
+idxs = np.random.choice(idxs, samples_per_class, replace=False) 
+```
 
+- Image Classification (Supervised Learning, Discrete label)
   * kNN
     * ![kNN-distance-matrix](./MyProject22/Photo/DistanceMatrix.png)
   * Softmax
@@ -51,10 +42,8 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
   * CNN
   * Cross Validation
 - Cross Validation for hyperparameter
-
   - Split data into train, val; choose hyperparameters on val and evaluate on test
-
-![kNN-k](./MyProject22/Photo/Cross-Validation_on_k.png)
+    ![kNN-k](./MyProject22/Photo/Cross-Validation_on_k.png)
 
 *Two-Layer Neural Network architecure*: affine - relu - affine - softmax.
 
@@ -70,7 +59,7 @@ idxs = np.random.choice(idxs, samples_per_class, replace=False)
 
 ![Saliency Maps](./MyProject22/Photo/saliency_map.png)
 
-**See more:** [Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
+***See more:** *[Assignments (2022) Implementation Details and Note](Doc/Assignment22.md)
 
 ## Machine Learning Knowledge Sharing
 
